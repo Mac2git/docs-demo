@@ -1,8 +1,13 @@
 import { defineConfig } from 'vitepress'
 import { set_sidebar } from "../.vitepress/utils/auto_sidebar.mjs";
-
+//字体加粗
+import boldPlugin from './plugins/bold-plugin.js';
 export default defineConfig({
   base:"/docs-demo/",
+  optimizeDeps: {
+    include: ['pdf'], // 将pdf文件添加到include数组中
+    exclude: [], // 排除其他不需要优化的文件类型
+  },
   mermaidPlugin: {
     class: "mermaid my-class", // set additional css classes for parent container
   },
@@ -15,6 +20,9 @@ export default defineConfig({
     //图片懒加载
     image:{
       lazyLoading:true
+    },
+    config(mdParser) {
+      mdParser.use(boldPlugin);
     },
     math:true
   },
@@ -31,10 +39,19 @@ export default defineConfig({
         link:'/doc-text/bootstrap/bootstrap',text:"BootStrap"
         },
         {
+          text:"vue",link:'/doc-text/vue/vue2'
+        },
+        {
           text:"uniapp",link:'/doc-text/uniapp/uniapp基础知识'
+        }]
+      },{ text: 'java', items:[
+        {
+        link:'/doc-text/java/SpringBoot',text:"SpringBoot"
         }]
       },{
         link:'/doc-text/emu/emu',text:"汇编"
+      },{
+        link:'/doc-text/wx/wx',text:"微信小程序"
       },
       { text: '关于我', link: '/about' },
       

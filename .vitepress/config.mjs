@@ -4,10 +4,6 @@ import { set_sidebar } from "../.vitepress/utils/auto_sidebar.mjs";
 import boldPlugin from './plugins/bold-plugin.js';
 export default defineConfig({
   base:"/docs-demo/",
-  optimizeDeps: {
-    include: ['pdf'], // 将pdf文件添加到include数组中
-    exclude: [], // 排除其他不需要优化的文件类型
-  },
   mermaidPlugin: {
     class: "mermaid my-class", // set additional css classes for parent container
   },

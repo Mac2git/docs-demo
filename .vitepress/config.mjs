@@ -44,10 +44,6 @@ export default defineConfig({
         {
           text:"uniapp",link:'/doc-text/uniapp/uniapp基础知识'
         }]
-      },{ text: 'java', items:[
-        {
-        link:'/doc-text/java/SpringBoot',text:"SpringBoot"
-        }]
       },{
         link:'/doc-text/emu/emu',text:"汇编"
       },

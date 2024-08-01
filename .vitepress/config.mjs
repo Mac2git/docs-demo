@@ -50,8 +50,6 @@ export default defineConfig({
         }]
       },{
         link:'/doc-text/emu/emu',text:"汇编"
-      },{
-        link:'/doc-text/wx/wx',text:"微信小程序"
       },
       { text: '关于我', link: '/about' },
       
@@ -81,6 +79,9 @@ export default defineConfig({
         items:[
           {
             text:"bootStrap",link:"/doc-text/bootstrap/bootstrap"
+          },
+          {
+            text:'Vue',link:'/doc-text/vue/vue'
           }
         ]
       },

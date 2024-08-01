@@ -6,7 +6,7 @@ hero:
   text: "持续学习，不断进步"
   tagline: Continuous learning,continuous improvement
   image:
-    src: ./public/webImage/background1.png
+    src: /webImage/background1.png
     alt: 背景图片
   actions:
     - theme: brand

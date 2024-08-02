@@ -28,12 +28,6 @@ features:
 import "./public/webjs/canvas-nest.js";
 
 export default {
-  themeConfig: {
-    // ...
-  },
-  plugins: [
-    // ...
-  ],
   extendsMarkdown: (md) => {
     md.use(require("markdown-it-vue").default, {
       components: {
@@ -52,6 +46,6 @@ export default {
         },
       },
     });
-  },
+  }
 };
 </script>

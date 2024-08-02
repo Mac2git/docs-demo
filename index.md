@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "MeAlert的知识区"
-  text: "持续学习，不断进步"
-  tagline: Continuous learning,continuous improvement
+  text: "温故而知新,可以为师矣"
+  tagline: If a man keeps cherishing his old knowledge, so as continually to be acquiring new, he may be a teacher of others.
   image:
     src: /webImage/background1.png
     alt: 背景图片
@@ -24,3 +24,37 @@ features:
   - title: 🤔 想一想
     details: 没有一个冬天不可逾越，没有一个春天不会来临
 ---
+<script>
+import "./public/webjs/canvas-nest.js";
+
+export default {
+  themeConfig: {
+    // ...
+  },
+  plugins: [
+    // ...
+  ],
+  extendsMarkdown: (md) => {
+    md.use(require("markdown-it-vue").default, {
+      components: {
+        "canvas-nest": {
+          mounted() {
+            const cnv = document.createElement("canvas");
+            cnv.className = "cnv";
+            document.body.appendChild(cnv);
+            new CanvasNest(cnv, {
+              color: "rgba(255,255,255,0.5)",
+              pointColor: "rgba(255,255,255,0.5)",
+              lineColor: "rgba(255,255,255,0.5)",
+              count: 300,
+            });
+          },
+        },
+      },
+    });
+  },
+};
+</script>
+
+<style>
+</style>

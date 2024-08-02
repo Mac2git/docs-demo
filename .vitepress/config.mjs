@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
 import { set_sidebar } from "../.vitepress/utils/auto_sidebar.mjs";
-//字体加粗
-import boldPlugin from './plugins/bold-plugin.js';
+// import { fireworks } from '../public/webjs/fireworks.js'
+// import { anime } from '../public/webjs/anime.min.js'
+// import plugin from 'markdown-it-mathjax3';
 export default defineConfig({
   base:"/docs-demo/",
   mermaidPlugin: {
@@ -10,42 +11,58 @@ export default defineConfig({
   //配置图标
   head: [["link", { rel: "icon", href: "./public/webImage/logo.svg" }]],
   title: "MeAlert的笔记网站",//标题
-  description: "A VitePress Site",
+  description: "记录学习日常",
   lang: 'en-US',
   markdown:{
     //图片懒加载
     image:{
       lazyLoading:true
     },
-    config(mdParser) {
-      mdParser.use(boldPlugin);
-    },
-    math:true
+    math:true,
+    lineNumbers: true
   },
   themeConfig: {
-
     //网页配置目录
     outlineTitle:"目录",
     outline:[2,6],
     logo:'./public/webImage/alert.png',
+    //导航栏
     nav: [ 
-      { text: '主页', link: '/' },
+      { text: '主页', 
+        link: '/'
+      },
       { text: '前端', items:[
         {
-        link:'/doc-text/bootstrap/bootstrap',text:"BootStrap"
+          link:'/doc-text/bootstrap/bootstrap',
+          text:"BootStrap",
+          activeMatch:'/doc-text/bootstrap/bootstrap' 
         },
         {
-          text:"vue",link:'/doc-text/vue/vue2'
+          text:"vue",
+          link:'/doc-text/vue/vue2',
+          activeMatch:'/doc-text/vue/vue2'
         },
         {
-          text:"uniapp",link:'/doc-text/uniapp/uniapp基础知识'
+          text:"uniapp",
+          link:'/doc-text/uniapp/uniapp基础知识',
+          activeMatch:'/doc-text/uniapp/uniapp基础知识'
         }]
       },{
-        link:'/doc-text/emu/emu',text:"汇编"
+        link:'/doc-text/emu/emu',
+        text:"汇编",
+        activeMatch:'/doc-text/emu/emu'
+      },{
+        link:'/doc-text/wx/wx',
+        text:"微信小程序",
+        activeMatch:'/doc-text/wx/wx'
       },
-      { text: '关于我', link: '/about' },
-      
+      { 
+        text: '关于我',
+        link: '/about',
+        activeMatch:'/about'
+       }
     ],
+    //上一页，下一页
     docFooter: { 
       prev: '上一文', 
       next: '下一文' 
@@ -64,6 +81,7 @@ export default defineConfig({
     // sidebar:{
     //   "/doc-text/bootstrap/bootstrap":set_sidebar("/doc-text/bootstrap")
     // },
+    //侧边栏
     sidebar:[
       {
         text:'前端',
@@ -73,8 +91,15 @@ export default defineConfig({
             text:"bootStrap",link:"/doc-text/bootstrap/bootstrap"
           },
           {
-            text:'Vue',link:'/doc-text/vue/vue'
+            text:'Vue',link:'/doc-text/vue/vue2'
           }
+        ]
+      },
+      {
+        text:'微信小程序',
+        collapsed: false,
+        items:[
+          {text:'微信小程序',link:'/doc-text/wx/wx'}
         ]
       },
       {
@@ -85,6 +110,7 @@ export default defineConfig({
         ]
       }
     ],
+    // 个人图标
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Mac2git?tab=repositories' },
       { 
@@ -93,6 +119,7 @@ export default defineConfig({
         }, 
         link:'https://gitee.com/wx_00ba6ce280'},
     ],
+    //页尾
     footer:{
       copyright:"Copyright © Albert MeAlert"
     },

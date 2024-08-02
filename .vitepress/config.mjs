@@ -9,7 +9,11 @@ export default defineConfig({
     class: "mermaid my-class", // set additional css classes for parent container
   },
   //配置图标
-  head: [["link", { rel: "icon", href: "./public/webImage/logo.svg" }]],
+  head: [
+    ["link", { rel: "icon", href: "./public/webImage/logo.svg" }],
+    // 添加 canvas-nest.js 到你的头部信息
+    ['script', { src: './public/webjs/canvas-nest.js' }]
+  ],
   title: "MeAlert的笔记网站",//标题
   description: "记录学习日常",
   lang: 'en-US',

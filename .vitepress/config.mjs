@@ -14,7 +14,7 @@ export default defineConfig({
     // 添加 canvas-nest.js 到你的头部信息
     ['script',{ src:'./webjs/anime.min.js' }],
     ['script',{ src:'./webjs/fireworks.js' }],
-    ['script',{src:'https://cdn.bootcss.com/canvas-nest.js/2.0.4/canvas-nest.js'}]
+    ['script',{src:'./webjs/canvas-nest.js'}]
   ],
   title: "MeAlert的笔记网站",//标题
   description: "记录学习日常",
@@ -31,7 +31,7 @@ export default defineConfig({
     //网页配置目录
     outlineTitle:"目录",
     outline:[2,6],
-    logo:'./public/webImage/alert.png',
+    logo:'./webImage/alert.png',
     //导航栏
     nav: [ 
       { text: '主页', 

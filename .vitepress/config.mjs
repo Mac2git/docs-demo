@@ -13,7 +13,8 @@ export default defineConfig({
     ["link", { rel: "icon", href: "./public/webImage/logo.svg" }],
     // 添加 canvas-nest.js 到你的头部信息
     ['script',{ src:'./public/webjs/anime.min.js' }],
-    ['script',{ src:'./public/webjs/fireworks.js' }]
+    ['script',{ src:'./public/webjs/fireworks.js' }],
+    ['script',{src:'https://cdn.bootcss.com/canvas-nest.js/2.0.4/canvas-nest.js'}]
   ],
   title: "MeAlert的笔记网站",//标题
   description: "记录学习日常",

@@ -1,6 +1,5 @@
 ---
 layout: home
-
 hero:
   name: "MeAlert的知识区"
   text: "温故而知新,可以为师矣"
@@ -24,28 +23,4 @@ features:
   - title: 🤔 想一想
     details: 没有一个冬天不可逾越，没有一个春天不会来临
 ---
-<script setup>
-import { ref,onMounted, watch } from 'vue';
-import CanvasNest from 'canvas-nest.js';
-onMounted(() => {
-  const config = {
-    color: "0,0,0",
-    opacity: 0.5,
-    zIndex: 1,
-    count: 99,        
-  };
-  const canvasNest = new CanvasNest(document.getElementById('canvas-nest'), config);
-});
-</script>
-<div id="canvas-nest" v-is="script"></div>
-<style>
-#canvas-nest {
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-}
-</style>
+<div id="cas" style="position: absolute;width: 200px;height: 200px; left: 200px; z-index: 99999;"></div>

@@ -24,8 +24,6 @@ features:
   - title: 🤔 想一想
     details: 没有一个冬天不可逾越，没有一个春天不会来临
 ---
-
-<div id="canvas-nest"></div>
 <script setup>
 import { ref,onMounted, watch } from 'vue';
 import CanvasNest from 'canvas-nest.js';
@@ -37,11 +35,9 @@ onMounted(() => {
     count: 99,        
   };
   const canvasNest = new CanvasNest(document.getElementById('canvas-nest'), config);
-  console.log(3333)
 });
-
 </script>
- 
+<div id="canvas-nest" v-is="script"></div>
 <style>
 #canvas-nest {
   width: 100%;

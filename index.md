@@ -24,3 +24,32 @@ features:
   - title: 🤔 想一想
     details: 没有一个冬天不可逾越，没有一个春天不会来临
 ---
+
+<div id="canvas-nest"></div>
+<script setup>
+import { ref,onMounted, watch } from 'vue';
+import CanvasNest from 'canvas-nest.js';
+onMounted(() => {
+  const config = {
+    color: "0,0,0",
+    opacity: 0.5,
+    zIndex: 1,
+    count: 99,        
+  };
+  const canvasNest = new CanvasNest(document.getElementById('canvas-nest'), config);
+  console.log(3333)
+});
+
+</script>
+ 
+<style>
+#canvas-nest {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+</style>

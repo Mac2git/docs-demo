@@ -10,10 +10,10 @@ export default defineConfig({
   },
   //配置图标
   head: [
-    ["link", { rel: "icon", href: "./public/webImage/logo.svg" }],
+    ["link", { rel: "icon", href: "./webImage/logo.svg" }],
     // 添加 canvas-nest.js 到你的头部信息
-    ['script',{ src:'./public/webjs/anime.min.js' }],
-    ['script',{ src:'./public/webjs/fireworks.js' }],
+    ['script',{ src:'./webjs/anime.min.js' }],
+    ['script',{ src:'./webjs/fireworks.js' }],
     ['script',{src:'https://cdn.bootcss.com/canvas-nest.js/2.0.4/canvas-nest.js'}]
   ],
   title: "MeAlert的笔记网站",//标题

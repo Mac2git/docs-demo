@@ -9,11 +9,11 @@ hero:
     alt: 背景图片
   actions:
     - theme: brand
-      text: Markdown 示例
-      link: /markdown-examples
+      text: 如何搭建 vitepress
+      link: /doc-text/vitepress/vitepress01
     - theme: alt
-      text: API 示例
-      link: /api-examples
+      text: 开始学习
+      link: /doc-text/emu/emu01
 
 features:
   - title: 💡 每日小tips
@@ -23,5 +23,3 @@ features:
   - title: 🤔 想一想
     details: 没有一个冬天不可逾越，没有一个春天不会来临
 ---
-
-<div id="cas" style="position: absolute;width: 200px;height: 200px; left: 200px; z-index: 99999;"></div>

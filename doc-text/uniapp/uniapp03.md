@@ -834,7 +834,7 @@ navigator详细文档：[文档地址](https://uniapp.dcloud.io/component/naviga
 
 ### 利用编程式导航进行跳转
 
-[导航跳转文档]( [uni.navigateTo](https://uniapp.dcloud.io/api/router?id=navigateto))
+[导航跳转文档](https://uniapp.dcloud.io/api/router?id=navigateto)
 
 ### **利用navigateTo进行导航跳转**
 

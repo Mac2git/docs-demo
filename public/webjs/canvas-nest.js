@@ -82,8 +82,8 @@
     all_array;
   the_canvas.id = canvas_id;
   the_canvas.style.cssText = "position:fixed;top:0;left:0;z-index:" + config.z + ";opacity:" + config.o;
-  get_by_tagname("app")[0].appendChild(the_canvas);
-
+  get_by_tagname("div")[0].appendChild(the_canvas);
+  
   //初始化画布大小
   set_canvas_size();
   window.onresize = set_canvas_size;

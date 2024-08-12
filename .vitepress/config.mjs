@@ -50,8 +50,8 @@ export default defineConfig({
         },
         {
           text:"uniapp",
-          link:'/doc-text/uniapp/uniapp基础知识',
-          activeMatch:'/doc-text/uniapp/uniapp基础知识'
+          link:'/doc-text/uniapp/uniapp01',
+          activeMatch:'/doc-text/uniapp/uniapp01'
         }]
       },{
         link:'/doc-text/emu/emu01',
@@ -306,6 +306,16 @@ export default defineConfig({
             text:'9.开启GithubActions并配置deploy',link:'/doc-text/vitepress/vitepress09'
           }
         ]
+      },{
+        text:'uniapp',
+        collapsed:true,
+        items:[{
+          text:'uniapp介绍',link:'/doc-text/uniapp/uniapp01'
+        },{
+          text:'全局配置和页面配置',link:'/doc-text/uniapp/uniapp02'
+        },{
+          text:'组件的基本使用',link:'/doc-text/uniapp/uniapp03'
+        }]
       }
     ],
     // 个人图标

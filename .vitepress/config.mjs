@@ -62,6 +62,11 @@ export default defineConfig({
         text:"微信小程序",
         activeMatch:'/doc-text/wx/wx01'
       },
+      {
+        text:'Android',
+        link:'/doc-text/android/android01',
+        activeMatch:'/doc-text/android/android01'
+      },
       { 
         text: '关于我',
         link: '/about',
@@ -315,6 +320,44 @@ export default defineConfig({
           text:'全局配置和页面配置',link:'/doc-text/uniapp/uniapp02'
         },{
           text:'组件的基本使用',link:'/doc-text/uniapp/uniapp03'
+        }]
+      },{
+        text:'Android',
+        collapsed:true,
+        items:[{
+          text:'Android系统介绍',link:'/doc-text/android/android01'
+        },{
+          text:'开发环境搭建',link:'/doc-text/android/android02'
+        },{
+          text:'了解 Android Studio 界面',link:'/doc-text/android/android03'
+        },{
+          text:'Android App开发基础',link:'/doc-text/android/android04'
+        },{
+          text:'App的开发语言',link:'/doc-text/android/android05'
+        },{
+          text:'App连接的数据库',link:'/doc-text/android/android06'
+        },{
+          text:'App的工程结构',link:'/doc-text/android/android07'
+        },{
+          text:'App的设计规范',link:'/doc-text/android/android08'
+        },{
+          text:'App的活动页面',link:'/doc-text/android/android09'
+        },{
+          text:'简单控件',link:'/doc-text/android/android10'
+        },{
+          text:'活动Activity',link:'/doc-text/android/android11'
+        },{
+          text:'中级控件',link:'/doc-text/android/android12'
+        },{
+          text:'数据存储',link:'/doc-text/android/android13'
+        },{
+          text:'第7章　内容共享',link:'/doc-text/android/android14'
+        },{
+          text:'第8章　高级控件',link:'/doc-text/android/android15'
+        },{
+          text:'第9章　广播组件Broadcast',link:'/doc-text/android/android16'
+        },{
+          text:'第10章　自定义控件',link:'/doc-text/android/android17'
         }]
       }
     ],

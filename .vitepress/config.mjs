@@ -63,6 +63,10 @@ export default defineConfig({
         activeMatch:'/doc-text/wx/wx01'
       },
       {
+        text:'编译原理',
+        link:'/doc-text/compile/编译原理01'
+      },
+      {
         text:'Android',
         link:'/doc-text/android/android01',
         activeMatch:'/doc-text/android/android01'
@@ -358,6 +362,16 @@ export default defineConfig({
           text:'第9章　广播组件Broadcast',link:'/doc-text/android/android16'
         },{
           text:'第10章　自定义控件',link:'/doc-text/android/android17'
+        }]
+      },{
+        text:'编译原理',
+        collapsed:true,
+        items:[{
+          text:'第一章引论',
+          link:'/doc-text/compile/编译原理01'
+        },{
+          text:'练习题答案',
+          link:'/doc-text/compile/练习题答案'
         }]
       }
     ],

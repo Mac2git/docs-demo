@@ -370,6 +370,9 @@ export default defineConfig({
           text:'第一章引论',
           link:'/doc-text/compile/编译原理01'
         },{
+          text:'第二章文法和语言',
+          link:'/doc-text/compile/编译原理01'
+        },{
           text:'练习题答案',
           link:'/doc-text/compile/练习题答案'
         }]

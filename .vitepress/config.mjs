@@ -1,8 +1,7 @@
 import { defineConfig } from 'vitepress';
 import { set_sidebar } from "../.vitepress/utils/auto_sidebar.mjs";
-// import { fireworks } from '../public/webjs/fireworks.js'
-// import { anime } from '../public/webjs/anime.min.js'
-// import plugin from 'markdown-it-mathjax3';
+
+//https://www.cnblogs.com/justrico/p/11440164.html
 export default defineConfig({
   base:"/docs-demo/",
   mermaidPlugin: {
@@ -14,18 +13,15 @@ export default defineConfig({
     // 添加 canvas-nest.js 到你的头部信息
     ['script',{ src:'./webjs/anime.min.js' }],
     ['script',{ src:'./webjs/fireworks.js' }],
-    ['script',{ src:'./webjs/canvas-nest.js' }]
+    ['script',{ src:'./webjs/canvas-nest.js' }],
   ],
   title: "MeAlert的笔记网站",//标题
   description: "记录学习日常",
   lang: 'en-US',
   markdown:{
-    //图片懒加载
-    image:{
-      lazyLoading:true
-    },
+    lazyLoading:true,
     math:true,
-    lineNumbers: true
+    lineNumbers: true,
   },
   themeConfig: {
     //网页配置目录

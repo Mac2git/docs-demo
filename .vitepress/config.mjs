@@ -21,7 +21,7 @@ export default defineConfig({
   markdown:{
     lazyLoading:true,
     math:true,
-    lineNumbers: true,
+    lineNumbers: true
   },
   themeConfig: {
     //网页配置目录
@@ -367,7 +367,7 @@ export default defineConfig({
           link:'/doc-text/compile/编译原理01'
         },{
           text:'第二章文法和语言',
-          link:'/doc-text/compile/编译原理01'
+          link:'/doc-text/compile/编译原理02'
         },{
           text:'练习题答案',
           link:'/doc-text/compile/练习题答案'

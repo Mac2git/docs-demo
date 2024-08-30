@@ -1790,7 +1790,7 @@ public class ApplicationIOActivity extends AppCompatActivity implements View.OnC
 
 由于Room并未集成到SDK中，而是作为第三方框架提供，因此要修改模块的build.gradle文件，往 dependencies节点添加下面两行配置，表示导入指定版本的Room库：
 
-```xml-dtd
+```xml
 implementation 'androidx.room:room-runtime:2.2.5'
 annotationProcessor 'androidx.room:room-compiler:2.2.5'
 ```

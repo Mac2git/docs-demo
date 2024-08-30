@@ -373,13 +373,13 @@ boolean result = true;
 
 点击弹窗上的“始终允许”，表示同意赋予存储卡读写权限，然后系统自动给App开启了存储卡权限，并执 行后续处理逻辑，也就是跳到了FileWriteActivity页面，在该页面即可访问公共空间的文件了。但在 Android 10系统中，即使授权通过，App仍然无法访问公共空间，这是因为Android 10默认开启沙箱模 式，不允许直接使用公共空间的文件路径，此时要修改AndroidManifest.xml，给application节点添加如下的requestLegacyExternalStorage属性：
 
-```xml-dtd
+```xml
 android:requestLegacyExternalStorage="true"
 ```
 
 从Android 11开始，为了让应用升级时也能正常访问公共空间，还得修改AndroidManifest.xml，给 application节点添加如下的preserveLegacyExternalStorage属性，表示暂时关闭沙箱模式：
 
-```xml-dtd
+```xml
 android:preserveLegacyExternalStorage="true"
 ```
 

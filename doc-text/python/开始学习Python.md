@@ -118,7 +118,7 @@ print("""hello world""")
 
 因为print函数默认有换行，我们想不让他换行可以这样做
 
-```pyt
+```python
 print('''hello world''',end="--->")
 print("""hello world""")
 ```

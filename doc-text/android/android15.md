@@ -413,7 +413,7 @@ if (ck_divider.isChecked()) { // 显示分隔线
 
 1. 在布局文件中取消按压背景的话，直接将listSelector属性设置为@null并不合适，因为尽管设为 @null，按压列表项时仍出现橙色背景。只有把listSelector属性设置为透明色才算真正取消背景，此时 listSelector的属性值如下所示（事先在colors.xml中定义好透明色）：
 
-   ```xml-dtd
+   ```xml
    android:listSelector="@color/transparent"
    ```
 

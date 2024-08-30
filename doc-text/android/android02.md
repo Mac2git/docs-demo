@@ -44,15 +44,15 @@
    2.
 
       Windows系统至少为Windows 7，推荐Windows 10，不支持Windows XP。 
-
+    
       下面是对网络的基本要求：
-
+    
       1.
-
+    
          最好连接公众网，因为校园网可能无法访问国外的网站。 
-
+    
       2.
-
+    
          下载速度至少每秒1MB，越快越好。因为Android Studio安装包大小为1GB左右，还需要另外下 载几百MB的SDK，所以网络带宽一定要够大，否则下载文件都要等很久。
 
 Windows 的系统要求如下：
@@ -187,31 +187,17 @@ Linux安装教程请看：https://developer.android.google.cn/static/studio/vide
 
 如需在 ChromeOS 上安装 Android Studio，请按以下步骤操作：
 
-1. 
-
-   安装[适用于 ChromeOS 的 Linux](https://support.google.com/chromebook/answer/9145439?hl=zh-cn)。
-
-2.
-
-   打开 **Files** 应用，然后在 **My files** 下的 **Downloads** 文件夹中找到 DEB 软件包。
-
-3.
-
-   右键点击 DEB 软件包，然后选择 **Install with Linux (Beta)**。
+1. 安装[适用于 ChromeOS 的 Linux](https://support.google.com/chromebook/answer/9145439?hl=zh-cn)。
+2. 打开 **Files** 应用，然后在 **My files** 下的 **Downloads** 文件夹中找到 DEB 软件包。
+3. 右键点击 DEB 软件包，然后选择 **Install with Linux (Beta)**。
 
    ![DEB 软件包在 Chrome 操作系统上的目标文件位置。](https://developer.android.google.cn/static/studio/images/studio-install-chromeos.png?hl=zh-cn)
 
-   - •
+​	如果您之前安装过 Android Studio，请选择是否要导入之前的 Android Studio 设置，然后点击 **OK**。
 
-     如果您之前安装过 Android Studio，请选择是否要导入之前的 Android Studio 设置，然后点击 **OK**。
+4. Android Studio **设置向导**会引导您完成其余设置，其中包括下载开发所需的 Android SDK 组件。
 
-4. 
-
-   Android Studio **设置向导**会引导您完成其余设置，其中包括下载开发所需的 Android SDK 组件。
-
-5. 
-
-   安装完成后，您可以通过启动器或 ChromeOS Linux 终端启动 Android Studio，只需在默认安装目录 `/opt/android-studio/bin/studio.sh` 中运行 `studio.sh` 即可。
+5. 安装完成后，您可以通过启动器或 ChromeOS Linux 终端启动 Android Studio，只需在默认安装目录 `/opt/android-studio/bin/studio.sh` 中运行 `studio.sh` 即可。
 
 如果有新的工具和其他 API 可供使用，Android Studio 将通过弹出式窗口通知您。如需手动检查更新，请依次点击 **Help > Check for Update**。
 

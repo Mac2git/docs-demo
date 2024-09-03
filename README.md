@@ -1,6 +1,6 @@
 # 效果展示：
 
-<img src="/readmeImages/home.png" style="zoom:60%;" />
+<img src="/public/readmeImages/home.png" style="zoom:60%;" />
 
 ![](/readmeImages/concat.png)
 

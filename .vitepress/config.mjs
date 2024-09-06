@@ -385,6 +385,22 @@ export default defineConfig({
           text:'数据类型和运算符',
           link:'/doc-text/python/数据类型和运算符'
         }]
+      },{
+        text:'杂七杂八',
+        collapsed:true,
+        items:[{
+          text:'CSS之包含块',
+          link:'/doc-text/interview/你不知道的 CSS 之包含块'
+        },{
+          text:'前端面试题',
+          link:'/doc-text/interview/前端面试题'
+        },{
+          text:'事件循环',
+          link:'/doc-text/interview/事件循环'
+        },{
+          text:'CSS属性计算过程',
+          link:'/doc-text/interview/CSS属性计算过程'
+        }]  
       }
     ],
     // 个人图标

@@ -12,7 +12,7 @@ export default defineConfig({
     ["link", { rel: "icon", href: "./webImage/logo.svg" }],
     // 添加 canvas-nest.js 到你的头部信息
     ['script',{ src:'./webjs/anime.min.js' }],
-    ['script',{ src:'./webjs/fireworks.js' }],
+    ['script',{ src:'./webjs/fireworks.js' }]
   ],
   title: "MeAlert的笔记网站",//标题
   description: "记录学习日常",
@@ -398,8 +398,8 @@ export default defineConfig({
           text:'事件循环',
           link:'/doc-text/interview/事件循环'
         },{
-          text:'CSS属性计算过程',
-          link:'/doc-text/interview/CSS属性计算过程'
+          text:'CSS 属性计算过程',
+          link:'/doc-text/interview/CSS 属性计算过程'
         }]  
       }
     ],

@@ -65,10 +65,7 @@
 | .container-xl    | 100%               | 100%           | 100%                 | 100%                   | 1140px                    |
 | .container-fluid | 100%               | 100%           | 100%                 | 100%                   | 100%                      |
 
-<div style="page-break-after: always;"></div>
 
 ## 工作原理
 
 Bootstrap的网格系统使用一系列容器、行和列来布局和对齐内容。它采用[弹性框](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)构建，完全响应。下面是一个示例，并深入探讨了网格是如何组合在一起的。
-
-<div style="page-break-after: always;"></div>

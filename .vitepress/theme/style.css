@@ -176,3 +176,157 @@
   padding-top: 24px;
   border: none;
 }
+
+/* 定义一个名为 scrollAnim 的动画 */
+@keyframes scrollAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 应用动画，在滚动到特定元素位置时触发 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+a {
+  animation: scrollAnim 1s ease-out forwards;
+}
+
+/* 当用户滚动到该元素时触发动画 */
+@supports (animation-name: scrollAnim) {
+  @media (scroll-anchoring: smooth) {
+    .element-to-animate {
+      animation: none;
+    }
+  }
+}
+
+/* 定义淡出动画 */
+@keyframes fadeOut {
+  from {
+    /* 动画开始时 */
+    opacity: 0;
+    /* 完全不透明 */
+  }
+
+  to {
+    /* 动画结束时 */
+    opacity: 1;
+    /* 完全透明 */
+  }
+}
+
+/* 应用淡出动画 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+a,
+h1,
+code,
+table,
+tr,
+td,
+img,
+span,
+button,
+li,
+dl {
+  animation: fadeOut 0.9s ease-in-out fade-in-out;
+  /* 动画名称, 持续时间, 缓动函数, 填充模式 */
+}
+
+@keyframes fade-in-out {
+
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.1;
+  }
+
+  20% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  75% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+.main>.text {
+  color: white;
+  -webkit-text-stroke: 1px skyblue;
+  letter-spacing: 0.04em;
+  font-size: 50px;
+}
+
+h1 {
+  font-family: "隶书";
+}
+
+/*
+标题
+*/
+.clip {
+  font-size: 60px;
+}
+
+/*
+英文
+*/
+.tagline {
+  font-size: 20px;
+  font-family: 'Serif';
+}
+
+/* 更改 目录的 字体和大小 */
+.root li {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+}
+
+/* 左侧菜单子目录 */
+.group .has-active .items .item {
+  font-family: '宋体';
+  font-size: 20px;
+}
+
+/* 顶部标题*/
+.wrapper .container .title .VPNavBarTitle .title span {
+  font-weight: bolder;
+  display: inline-block;
+  font-size: 40px;
+  font-weight: bolder;
+  color: #ddd;
+  text-shadow: -1px 0 0 #333,
+    0 -1px 0 #333,
+    1px 0 0 #333,
+    0 1px 0 #333;
+  font-size: 20px;
+}

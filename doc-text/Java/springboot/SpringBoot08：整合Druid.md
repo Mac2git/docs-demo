@@ -215,7 +215,7 @@ public ServletRegistrationBean statViewServlet() {
 }
 ```
 
-配置完毕后，我们可以选择访问 ：[http://localhost:8080/druid/login.html](http://localhost:8080/druid/login.html)
+配置完毕后，我们可以选择访问 ：`http://localhost:8080/druid/login.html`
 
 ![image-20200727233409312](/SpringBoot-images/集成Druid/image-20200727233409312.png)
 

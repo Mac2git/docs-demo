@@ -84,7 +84,7 @@ Vue+SpringBoot
    }
    ```
 
-5. 访问测试 ：http://localhost:8080/swagger-ui.html ，可以看到swagger的界面；
+5. 访问测试 ：`http://localhost:8080/swagger-ui.html` ，可以看到swagger的界面；
 
    ![image-20200731132229265](/SpringBoot-images/swagger/image-20200731132229265.png)
 
@@ -127,7 +127,7 @@ Vue+SpringBoot
    }
    ```
 
-4. 重启项目，访问测试 http://localhost:8080/swagger-ui.html  看下效果；
+4. 重启项目，访问测试 `http://localhost:8080/swagger-ui.html`  看下效果；
 
    ![image-20200731161851136](/SpringBoot-images/swagger/image-20200731161851136.png)
 
@@ -425,7 +425,7 @@ Swagger的所有注解定义在io.swagger.annotations包下
 
 我们可以导入不同的包实现不同的皮肤定义：
 
-1、默认的  **访问 http://localhost:8080/swagger-ui.html**
+1、默认的  **访问 `http://localhost:8080/swagger-ui.html`**
 
 ```xml
 <dependency> 
@@ -437,7 +437,7 @@ Swagger的所有注解定义在io.swagger.annotations包下
 
 ![image-20200731204929854](/SpringBoot-images/swagger/image-20200731204929854.png)
 
-2、bootstrap-ui  **访问 http://localhost:8080/doc.html**
+2、bootstrap-ui  **访问 `http://localhost:8080/doc.html`**
 
 ```xml
 <!-- 引入swagger-bootstrap-ui包 /doc.html-->
@@ -450,7 +450,7 @@ Swagger的所有注解定义在io.swagger.annotations包下
 
 ![image-20200731205550845](/SpringBoot-images/swagger/image-20200731205550845.png)
 
-3、Layui-ui  **访问 http://localhost:8080/docs.html**
+3、Layui-ui  **访问 `http://localhost:8080/docs.html`**
 
 ```xml
 <!-- 引入swagger-ui-layer包 /docs.html-->
@@ -463,7 +463,7 @@ Swagger的所有注解定义在io.swagger.annotations包下
 
 - <font color=red>我这个测试没成功(Layui-ui)</font>
 
-4、mg-ui  **访问 http://localhost:8080/document.html**
+4、mg-ui  **访问 `http://localhost:8080/document.html`**
 
 ```xml
 <!-- 引入swagger-ui-layer包 /document.html-->

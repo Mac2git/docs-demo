@@ -221,7 +221,7 @@ java -jar dubbo-admin-0.0.1-SNAPSHOT.jar
 
 【注意：zookeeper的服务一定要打开！】
 
-执行完毕，我们去访问一下 http://localhost:7001/ ， 这时候我们需要输入登录账户和密码，我们都是默认的root-root；
+执行完毕，我们去访问一下 `http://localhost:7001/` ， 这时候我们需要输入登录账户和密码，我们都是默认的root-root；
 
 ![image-20200801183043114](/SpringBoot-images/Dubbo和Zookeeper集成/image-20200801183043114.png)
 

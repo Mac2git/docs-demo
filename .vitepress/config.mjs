@@ -4,6 +4,8 @@ import { set_sidebar } from "../.vitepress/utils/auto_sidebar.mjs";
 //https://www.cnblogs.com/justrico/p/11440164.html
 export default defineConfig({
   base:"/docs-demo/",
+  //禁用链接检查
+  ignoreDeadLinks: true,
   mermaidPlugin: {
     class: "mermaid my-class", // set additional css classes for parent container
   },

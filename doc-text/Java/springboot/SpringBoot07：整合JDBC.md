@@ -16,7 +16,7 @@
 
 1. 我去新建一个项目测试：springboot-data-jdbc ; 引入相应的模块！基础模块
 
-   ![1595741635349](SpringBoot07：整合JDBC.assets/1595741635349.png)
+   ![1595741635349](/SpringBoot-images/SpringBoot07：整合JDBC.assets/1595741635349.png)
 
 2. 项目建好之后，发现自动帮我们导入了如下的启动器：
 

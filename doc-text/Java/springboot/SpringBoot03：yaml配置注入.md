@@ -281,6 +281,70 @@ server:
 
 **yaml配置注入到实体类完全OK！**
 
+## yaml松散绑定
+
+yaml支持松散绑定，就是我们的类中的变量使用驼峰命名法，而我们的`application.yaml`使用中间使用-
+
+具体看实例：
+
+我们要使用yaml中的松散绑定，绑定yaml的值
+
+```java
+//添加为组件
+@Component
+//告诉配置文件，要绑定的对象
+@ConfigurationProperties(prefix = "person")
+public class Person {
+    private String name;
+    private Integer age;
+
+    public Person() {
+    }
+
+    public Person(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getLastName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setLastName(String lastName) {
+        this.name = lastName;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+
+```
+
+yaml配置文件
+
+```yaml
+person:
+  last-name: 张三${random.uuid}
+  age: ${random.int}
+  happy: false
+  birth: 2024/9/9
+```
+
+可以看出我们的person 类是要和yaml绑定，yaml读取的是person类中的get/set方法，变量名想怎么写就怎么写，但是get/set方法必须要和yaml文件中的属性名一一对应！
+
 ## 加载指定的配置文件
 
 - **@PropertySource ：**加载指定的配置文件；

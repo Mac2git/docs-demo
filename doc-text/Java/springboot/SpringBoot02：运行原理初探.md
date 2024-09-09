@@ -116,7 +116,7 @@ public class SpringbootApplication {
     public @interface Configuration {}
     ```
 
-- 这里的 **@Configuration**，说明这是一个<font color=red>spring的配置类</font> ，配置类就是对应Spring的xml 配置文件；
+- 这里的 **@Configuration**，说明这是一个<font color=red>Spring的配置类</font> ，配置类就是对应Spring的xml 配置文件；
 
 - **@Component** 这就说明，启动类本身也是<font color=red>Spring中的一个组件</font>而已，负责启动应用！
 

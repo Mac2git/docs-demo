@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitepress';
 import { set_sidebar } from "../.vitepress/utils/auto_sidebar.mjs";
-import mdItCustomAttrs  from 'markdown-it-custom-attrs'
 //https://www.cnblogs.com/justrico/p/11440164.html
 export default defineConfig({
   base:"/docs-demo/",
@@ -15,10 +14,7 @@ export default defineConfig({
     ["link", { rel: "icon", href: "./webImage/logo.svg" }],
     // 添加 canvas-nest.js 到你的头部信息
     ['script',{ src:'./webjs/anime.min.js' }],
-    ['script',{ src:'./webjs/fireworks.js' }],
-    ['link',{src:'https://infang.github.io/Canvas/dist/1.2.2/canvas.min.css'}],
-    ["link",{ rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" }],
-    ["script", { src: "https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js" }],
+    ['script',{ src:'./webjs/fireworks.js' }]
   ],
   title: "MeAlert的笔记网站",//标题
   description: "记录学习日常",
@@ -26,13 +22,7 @@ export default defineConfig({
   markdown:{
     lazyLoading:true,
     math:true,
-    lineNumbers: true,
-    config: (md) => {
-      // use more markdown-it plugins!
-      md.use(mdItCustomAttrs, 'image', {
-          'data-fancybox': "gallery"
-      })
-    }
+    lineNumbers: true
   },
   themeConfig: {
     //网页配置目录

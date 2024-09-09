@@ -332,3 +332,12 @@ h1 {
     0 1px 0 #333;
   font-size: 20px;
 }
+
+/* 图片放大 */
+.medium-zoom-overlay {
+  z-index: 20;
+}
+
+.medium-zoom-image {
+  z-index: 21;
+}

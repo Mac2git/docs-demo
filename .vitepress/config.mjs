@@ -17,18 +17,19 @@ export default defineConfig({
     ['script',{ src:'./webjs/fireworks.js' }]
   ],
   title: "MeAlert的笔记网站",//标题
-  description: "记录学习日常",
-  lang: 'en-US',
+  description: "记录学习日常",//网站描述
+  lang: 'en-US',//语言
+  //markdown 拓展
   markdown:{
-    lazyLoading:true,
-    math:true,
-    lineNumbers: true
+    lazyLoading:true,// 图片懒加载
+    math:true,//支持数学公式
+    lineNumbers: true //显示行号
   },
   themeConfig: {
     //网页配置目录
     outlineTitle:"目录",
-    outline:[2,6],
-    logo:'./webImage/alert.png',
+    outline:[2,6],//子级目录
+    logo:'/webImage/alert.png',//网站logo
     //导航栏
     nav: [ 
       { text: '主页', 
@@ -98,8 +99,8 @@ export default defineConfig({
     //sidebar:false,//是否关闭侧边栏
     aside:'right',//设置右侧边栏在左侧显示
     //更新显示时间
-    lastUpdated: true,
-    lastUpdatedText: "最后更新",
+    lastUpdated: true,//是否显示最后更新时间
+    lastUpdatedText: "最后更新",//最后更新显示文字
     // sidebar:{
     //   "/doc-text/bootstrap/bootstrap":set_sidebar("/doc-text/bootstrap")
     // },
@@ -490,7 +491,7 @@ export default defineConfig({
     ],
     //页尾
     footer:{
-      copyright:"Copyright © Albert MeAlert"
+      copyright:"Copyright © Albert MeAlert 2024"
     },
     // 设置搜索框的样式
     search: {

@@ -48,7 +48,7 @@
 
    默认
    
-    ```shell
+    ```properties
     login.btn=登录
     login.password=密码
     login.remember=记住我
@@ -58,7 +58,7 @@
    
    英文：
    
-   ```shell
+   ```properties
    login.btn=Sign in
    login.password=Password
    login.remember=Remember me
@@ -68,7 +68,7 @@
    
    中文：
    
-   ```shell
+   ```properties
    login.btn=登录
    login.password=密码
    login.remember=记住我
@@ -190,7 +190,7 @@ public Locale resolveLocale(HttpServletRequest request) {
 
 我们去写一个处理的组件类！
 
-   ```java
+```java
 package nuc.ss.component;
 
 import org.springframework.util.StringUtils;
@@ -224,11 +224,12 @@ public class MyLocaleResolver implements LocaleResolver {
 
     }
 }
-   ```
+```
 
 为了让我们的区域化信息能够生效，我们需要再配置一下这个组件！在我们自己的`MvcConofig`下添加`bean`；
 
 ```java
+//这个方法名是固定的，不可以改变，如果变了，就不生效了
 @Bean
 public LocaleResolver localeResolver(){
     return new MyLocaleResolver();
@@ -238,12 +239,6 @@ public LocaleResolver localeResolver(){
 **我们重启项目，来访问一下，发现点击按钮可以实现成功切换！搞定收工！**
 
 ![1595666066757](/SpringBoot-images/SpringBoot13：页面国际化.assets/1595666066757.png)
-
-
-
-
-
-
 
 ## 小结：
 

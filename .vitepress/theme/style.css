@@ -238,17 +238,17 @@ p,
 ol,
 a,
 h1,
-code,
 table,
 tbody,
 thead,
 tr,
 td,
 img,
-span,
-button,
 li,
-dl {
+dl,
+ul,
+li {
+  display: block;
   animation: fadeOut 0.9s ease-in-out fade-in-out;
   /* 动画名称, 持续时间, 缓动函数, 填充模式 */
 }

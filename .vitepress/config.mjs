@@ -393,6 +393,9 @@ export default defineConfig({
         },{
           text:'数据类型和运算符',
           link:'/doc-text/python/数据类型和运算符'
+        },{
+          text:'顺序、选择、循环',
+          link:'/doc-text/python/顺序、选择、循环'
         }]
       },
       {

@@ -214,7 +214,7 @@ Vue+SpringBoot
    @Bean
    public Docket docket(Environment environment) {
       // 设置要显示swagger的环境
-      Profiles of = Profiles.of("dev", "test");
+      Profiles of = Profiles.of("dev");
       // 判断当前是否处于该环境
       // 通过 enable() 接收此参数判断是否要显示
       boolean b = environment.acceptsProfiles(of);

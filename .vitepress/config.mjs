@@ -13,8 +13,8 @@ export default defineConfig({
   head: [
     ["link", { rel: "icon", href: "./webImage/logo.svg" }],
     // 添加 canvas-nest.js 到你的头部信息
-    ['script',{ src:'./webjs/anime.min.js' }],
-    ['script',{ src:'./webjs/fireworks.js' }]
+    ['script',{ src:'/webjs/anime.min.js' }],
+    ['script',{ src:'/webjs/fireworks.js' }]
   ],
   title: "MeAlert的笔记网站",//标题
   description: "记录学习日常",//网站描述
@@ -464,6 +464,9 @@ export default defineConfig({
         },{
           text:'说明',
           link:'/doc-text/Java/springboot/说明'
+        },{
+          text:'POM包',
+          link:'/doc-text/Java/springboot/SpringBootPom包'
         }]
       },{
         text:'杂七杂八',

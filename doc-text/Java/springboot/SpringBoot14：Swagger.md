@@ -475,3 +475,53 @@ Swagger的所有注解定义在io.swagger.annotations包下
 ```
 
 ![image-20200731205723914](/SpringBoot-images/swagger/image-20200731205723914.png)
+
+## 解决SpringBoot整合swagger中的“Failed to start bean ‘documentationPluginsBootstrapper‘； nested exception is java.lang.NullPoint”
+
+原因：该问题是由于[SpringBoot整合Swagger](https://so.csdn.net/so/search?q=SpringBoot整合Swagger&spm=1001.2101.3001.7020)时，SpringBoot版本与 springfox版本不兼容导致的！具体解决方案如下：
+
+```xml
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+```
+
+有部分朋友添加了这个之后就可以正常运行了！但一般来说还是需要再Spring 容器中注入下面这个 bean，一般写在swagger的配置文件里：
+
+```java
+@Bean
+public static BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {
+    return new BeanPostProcessor() {
+
+        @Override
+        public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+            if (bean instanceof WebMvcRequestHandlerProvider || bean instanceof WebFluxRequestHandlerProvider) {
+                customizeSpringfoxHandlerMappings(getHandlerMappings(bean));
+            }
+            return bean;
+        }
+
+        private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerMappings(List<T> mappings) {
+            List<T> copy = mappings.stream()
+                    .filter(mapping -> mapping.getPatternParser() == null)
+                    .collect(Collectors.toList());
+            mappings.clear();
+            mappings.addAll(copy);
+        }
+
+        @SuppressWarnings("unchecked")
+        private List<RequestMappingInfoHandlerMapping> getHandlerMappings(Object bean) {
+            try {
+                Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
+                field.setAccessible(true);
+                return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+    };
+}
+```
+
+参考链接：[解决“Failed to start bean ‘documentationPluginsBootstrapper‘； nested exception is java.lang.NullPoint”_failed to start bean 'documentationpluginsbootstra-CSDN博客](https://blog.csdn.net/qq_50253423/article/details/132210326)

@@ -53,6 +53,20 @@ export default defineConfig({
         }]
       },{text: '后端', items:[
         {
+          text:'狂神说Spring',
+          link:'/doc-text/Java/spring/Spring',
+          activeMatch:'/doc-text/Java/spring/Spring'
+        },
+        {
+          text:'狂神说SpringMVC',
+          link:'/doc-text/Java/springmvc/SpringMVC',
+          activeMatch:'/doc-text/Java/springmvc/SpringMVC'
+        },
+        {
+          text:'狂神说Mybatis',
+          link:'/doc-text/Java/mybatis/Mybatis',
+          activeMatch:'/doc-text/Java/mybatis/Mybatis'
+        },{
           text:'狂神说SpringBoot',
           link:'/doc-text/Java/springboot/SpringBoot01：Hello,World！',
           activeMatch:'/doc-text/Java/springboot/SpringBoot01：Hello,World！'
@@ -397,6 +411,25 @@ export default defineConfig({
           text:'顺序、选择、循环',
           link:'/doc-text/python/顺序、选择、循环'
         }]
+      },
+      {
+        text:'SSM',
+        collapsed:true,
+        items:[{
+            text:'Spring',
+            collapsed:true,
+            link:'/doc-text/Java/spring/Spring'
+          },
+          {
+            text:'Mybatis',
+            collapsed:true,
+            link:'/doc-text/Java/mybatis/Mybatis'
+          },
+          {
+            text:'SpringMVC',
+            collapsed:true,
+            link:'/doc-text/Java/springmvc/SpringMVC'
+          }]
       },
       {
         text:'Springboot',

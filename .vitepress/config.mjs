@@ -54,7 +54,7 @@ export default defineConfig({
       },{text: '后端', items:[
         {
           text:'狂神说Java基础',
-          link:'/doc-text/Java/javaSE/JavaSE'
+          link:'/doc-text/Java/javaSE/cmd的使用和Dos命令的使用'
         },
         {
           text:'狂神说Spring',
@@ -72,8 +72,8 @@ export default defineConfig({
           activeMatch:'/doc-text/Java/mybatis/Mybatis'
         },{
           text:'狂神说SpringBoot',
-          link:'/doc-text/Java/springboot/SpringBoot01：Hello,World！',
-          activeMatch:'/doc-text/Java/springboot/SpringBoot01：Hello,World！'
+          link:'/doc-text/Java/springboot/什么是SpringBoot',
+          activeMatch:'/doc-text/Java/springboot/什么是SpringBoot'
         }]
       },{
         link:'/doc-text/emu/emu01',
@@ -421,7 +421,52 @@ export default defineConfig({
         collapsed:true,
         items:[{
           text:'Java基础',
-          link:'/doc-text/Java/javaSE/JavaSE'
+          items:[{
+            text:'cmd的使用和Dos命令的使用',
+            link:'/doc-text/Java/javaSE/cmd的使用和Dos命令的使用'
+          },{
+            text:'基础',
+            link:'/doc-text/Java/javaSE/基础'
+          },{
+            text:'流程控制',
+            link:'/doc-text/Java/javaSE/流程控制'
+          },{
+            text:'方法',
+            link:'/doc-text/Java/javaSE/方法'
+          },{
+            text:'数组',
+            link:'/doc-text/Java/javaSE/数组'
+          },{
+            text:'面向对象',
+            link:'/doc-text/Java/javaSE/面向对象'
+          },{
+            text:'异常',
+            link:'/doc-text/Java/javaSE/异常'
+          },{
+            text:'常用类',
+            link:'/doc-text/Java/javaSE/常用类'
+          },{
+            text:'集合',
+            link:'/doc-text/Java/javaSE/集合'
+          },{
+            text:'IO',
+            link:'/doc-text/Java/javaSE/IO'
+          },{
+            text:'GUI编程',
+            link:'/doc-text/Java/javaSE/GUI'
+          },{
+            text:'网络编程',
+            link:'/doc-text/Java/javaSE/网络编程'
+          },{
+            text:'多线程',
+            link:'/doc-text/Java/javaSE/多线程'
+          },{
+            text:'注解和反射SE总结',
+            link:'/doc-text/Java/javaSE/注解和反射SE总结'
+          },{
+            text:'JVM入门',
+            link:'/doc-text/Java/javaSE/JVM入门'
+          }]
         },{
           text:'SSM',
           collapsed:true,
@@ -442,77 +487,79 @@ export default defineConfig({
               link:'/doc-text/Java/springmvc/SpringMVC'
             }
           ]
-        }]
-      },
-      {
-        text:'Springboot',
-        collapsed:true,
-        items:[{
-          text:'Hello World',
-          link:'/doc-text/Java/springboot/SpringBoot01：Hello,World！'
         },{
-          text:'运行原理初探',
-          link:'/doc-text/Java/springboot/SpringBoot02：运行原理初探'
-        },{
-          text:'yaml配置注入',
-          link:'/doc-text/Java/springboot/SpringBoot03：yaml配置注入'
-        },{
-          text:'JSR303数据校验及多环境切换',
-          link:'/doc-text/Java/springboot/SpringBoot04：JSR303数据校验及多环境切换'
-        },{
-          text:'自动配置原理',
-          link:'/doc-text/Java/springboot/SpringBoot05：自动配置原理'
-        },{
-          text:'自定义starter',
-          link:'/doc-text/Java/springboot/SpringBoot06：自定义starter'
-        },{
-          text:'整合JDBC',
-          link:'/doc-text/Java/springboot/SpringBoot07：整合JDBC'
-        },{
-          text:'整合Druid',
-          link:'/doc-text/Java/springboot/SpringBoot08：整合Druid'
-        },{
-          text:'整合MyBatis',
-          link:'/doc-text/Java/springboot/SpringBoot09：整合MyBatis'
-        },{
-          text:'Web开发静态资源处理',
-          link:'/doc-text/Java/springboot/SpringBoot10：Web开发静态资源处理'
-        },{
-          text:'Thymeleaf模板引擎',
-          link:'/doc-text/Java/springboot/SpringBoot11：Thymeleaf模板引擎'
-        },{
-          text:'MVC自动配置原理',
-          link:'/doc-text/Java/springboot/SpringBoot12：MVC自动配置原理'
-        },{
-          text:'页面国际化',
-          link:'/doc-text/Java/springboot/SpringBoot13：页面国际化'
-        },{
-          text:'Swagger',
-          link:'/doc-text/Java/springboot/SpringBoot14：Swagger'
-        },{
-          text:'异步、定时、邮件任务',
-          link:'/doc-text/Java/springboot/SpringBoot15：异步、定时、邮件任务'
-        },{
-          text:'富文本编辑器',
-          link:'/doc-text/Java/springboot/SpringBoot16：富文本编辑器'
-        },{
-          text:'Dubbo和Zookeeper集成',
-          link:'/doc-text/Java/springboot/SpringBoot17：Dubbo和Zookeeper集成'
-        },{
-          text:'集成SpringSecurity',
-          link:'/doc-text/Java/springboot/SpringBoot18：集成SpringSecurity'
-        },{
-          text:'Shiro',
-          link:'/doc-text/Java/springboot/Shiro'
-        },{
-          text:'员工管理',
-          link:'/doc-text/Java/springboot/员工管理'
-        },{
-          text:'说明',
-          link:'/doc-text/Java/springboot/说明'
-        },{
-          text:'POM包',
-          link:'/doc-text/Java/springboot/SpringBootPom包'
+          text:'Springboot',
+          collapsed:true,
+          items:[{
+            text:'什么是SpringBoot',
+            link:'/doc-text/Java/springboot/什么是SpringBoot'
+          },{
+            text:'Hello World',
+            link:'/doc-text/Java/springboot/SpringBoot01：Hello,World！'
+          },{
+            text:'运行原理初探',
+            link:'/doc-text/Java/springboot/SpringBoot02：运行原理初探'
+          },{
+            text:'yaml配置注入',
+            link:'/doc-text/Java/springboot/SpringBoot03：yaml配置注入'
+          },{
+            text:'JSR303数据校验及多环境切换',
+            link:'/doc-text/Java/springboot/SpringBoot04：JSR303数据校验及多环境切换'
+          },{
+            text:'自动配置原理',
+            link:'/doc-text/Java/springboot/SpringBoot05：自动配置原理'
+          },{
+            text:'自定义starter',
+            link:'/doc-text/Java/springboot/SpringBoot06：自定义starter'
+          },{
+            text:'整合JDBC',
+            link:'/doc-text/Java/springboot/SpringBoot07：整合JDBC'
+          },{
+            text:'整合Druid',
+            link:'/doc-text/Java/springboot/SpringBoot08：整合Druid'
+          },{
+            text:'整合MyBatis',
+            link:'/doc-text/Java/springboot/SpringBoot09：整合MyBatis'
+          },{
+            text:'Web开发静态资源处理',
+            link:'/doc-text/Java/springboot/SpringBoot10：Web开发静态资源处理'
+          },{
+            text:'Thymeleaf模板引擎',
+            link:'/doc-text/Java/springboot/SpringBoot11：Thymeleaf模板引擎'
+          },{
+            text:'MVC自动配置原理',
+            link:'/doc-text/Java/springboot/SpringBoot12：MVC自动配置原理'
+          },{
+            text:'页面国际化',
+            link:'/doc-text/Java/springboot/SpringBoot13：页面国际化'
+          },{
+            text:'Swagger',
+            link:'/doc-text/Java/springboot/SpringBoot14：Swagger'
+          },{
+            text:'异步、定时、邮件任务',
+            link:'/doc-text/Java/springboot/SpringBoot15：异步、定时、邮件任务'
+          },{
+            text:'富文本编辑器',
+            link:'/doc-text/Java/springboot/SpringBoot16：富文本编辑器'
+          },{
+            text:'Dubbo和Zookeeper集成',
+            link:'/doc-text/Java/springboot/SpringBoot17：Dubbo和Zookeeper集成'
+          },{
+            text:'集成SpringSecurity',
+            link:'/doc-text/Java/springboot/SpringBoot18：集成SpringSecurity'
+          },{
+            text:'Shiro',
+            link:'/doc-text/Java/springboot/Shiro'
+          },{
+            text:'员工管理',
+            link:'/doc-text/Java/springboot/员工管理'
+          },{
+            text:'说明',
+            link:'/doc-text/Java/springboot/说明'
+          },{
+            text:'POM包',
+            link:'/doc-text/Java/springboot/SpringBootPom包'
+          }]
         }]
       },{
         text:'杂七杂八',

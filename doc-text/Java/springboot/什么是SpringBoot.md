@@ -1,3 +1,5 @@
+idea springboot 2.x构建地址：https://start.aliyun.com/
+SpringBoot3 笔记链接：https://www.yuque.com/leifengyang/springboot3
 ## 1.什么是SpringBoot
 
 > 回顾什么是Spring？

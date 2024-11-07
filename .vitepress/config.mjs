@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { set_sidebar } from "../.vitepress/utils/auto_sidebar.mjs";
+import { lib } from 'markdown-it/lib/common/utils.mjs';
 //https://www.cnblogs.com/justrico/p/11440164.html
 export default defineConfig({
   base:"/docs-demo/",
@@ -96,6 +97,10 @@ export default defineConfig({
       {
         text:'Python',
         link:'/doc-text/python/开始学习Python'
+      },{
+        text:'Linux',
+        link:'/doc-text/Linux/chapter01介绍',
+        activeMatch:'/doc-text/Linux/chapter01介绍'
       },
       { 
         text: '关于我',
@@ -560,6 +565,18 @@ export default defineConfig({
             text:'POM包',
             link:'/doc-text/Java/springboot/SpringBootPom包'
           }]
+        }]
+      },
+      {
+        text:'Linux', 
+        items:[{
+          text:'Linux介绍',
+          link:'/doc-text/Linux/chapter01介绍',
+          activeMatch:'/doc-text/Linux/chapter01介绍'
+        },{
+          text:'第二章',
+          link:'/doc-text/Linux/chapter02',
+          activeMatch:'/doc-text/Linux/chapter02'
         }]
       },{
         text:'杂七杂八',

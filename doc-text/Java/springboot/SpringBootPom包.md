@@ -33,7 +33,7 @@
   <artifactId>lombok</artifactId>
 </dependency>
 ```
-## 解决 @`ConfigurationProperties` 顶部爆红问题
+## 解决 @`ConfigurationProperties` 在properties或yaml没有提示
 ```xml
 <dependency>
   <groupId>org.springframework.boot</groupId>

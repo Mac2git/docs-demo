@@ -177,6 +177,11 @@
   border: none;
 }
 
+/* 设置 a 标签不换行 */
+.vp-doc a {
+  display: inline-block;
+}
+
 /* 定义一个名为 scrollAnim 的动画 */
 @keyframes scrollAnim {
   0% {

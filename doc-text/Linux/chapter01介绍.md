@@ -303,20 +303,20 @@ Linux是一种类Unix的操作系统
 
 5. 使用解压命令 tar，得到一个安装文件
 
-   ```cmd
+   ```shell
    cd /opt/ 	#进入到 opt 目录
    tar -zxvf xxx.tar.gz 	# 解压 xxx.tar.gz 目录
    ```
 
 6. 进入该 vm 解压的目录，/opt 目录下
 
-   ```cmd
+   ```shell
    cd vmware
    ```
 
 7. 安装 ./vmware-install.pl
 
-   ```cmd
+   ```shell
    ./文件名  	#安装文件
    ```
 
@@ -326,7 +326,7 @@ Linux是一种类Unix的操作系统
 
    如何查看 Linux 有没有安装 gcc
 
-   ```cmd
+   ```shell
    gcc -v	# 查看 gcc 版本信息
    ```
 
@@ -377,7 +377,7 @@ Linux是一种类Unix的操作系统
 
    存放着普通用户的主目录，在 Linux 中每个用户都有一个自己的目录，一般该目录名是以用户的账号命名。
 
-   ```cmd
+   ```shell
    useradd xxx  			# 添加一个 xxx 的用户
    userdel - r xxx 		# 删除一个 xxx 的用户
    ```

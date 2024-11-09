@@ -99,8 +99,15 @@ export default defineConfig({
         link:'/doc-text/python/开始学习Python'
       },{
         text:'Linux',
-        link:'/doc-text/Linux/chapter01介绍',
-        activeMatch:'/doc-text/Linux/chapter01介绍'
+        items:[{
+          text:'Linux',
+          link:'/doc-text/Linux/chapter01介绍',
+          activeMatch:'/doc-text/Linux/chapter01介绍'
+        },{
+          text:'狂神说Linux',
+          link:'/doc-text/Linux/Linux快速入门',
+          activeMatch:'/doc-text/Linux/Linux快速入门'
+        }]
       },
       { 
         text: '关于我',

@@ -72,6 +72,10 @@ export default defineConfig({
           link:'/doc-text/Java/mybatis/Mybatis',
           activeMatch:'/doc-text/Java/mybatis/Mybatis'
         },{
+          text:'狂神说MybatisPlus',
+          link:'/doc-text/Java/mybatisPlus/MyBatisPlus快速入门',
+          activeMatch:'/doc-text/Java/mybatisPlus/MyBatisPlus快速入门'
+        },{
           text:'狂神说SpringBoot',
           link:'/doc-text/Java/springboot/什么是SpringBoot',
           activeMatch:'/doc-text/Java/springboot/什么是SpringBoot'
@@ -492,8 +496,11 @@ export default defineConfig({
               text:'Mybatis',
               collapsed:true,
               link:'/doc-text/Java/mybatis/Mybatis'
-            },
-            {
+            },{
+              text:'狂神说MybatisPlus',
+              link:'/doc-text/Java/mybatisPlus/MyBatisPlus快速入门',
+              activeMatch:'/doc-text/Java/mybatisPlus/MyBatisPlus快速入门'
+            },{
               text:'SpringMVC',
               collapsed:true,
               link:'/doc-text/Java/springmvc/SpringMVC'

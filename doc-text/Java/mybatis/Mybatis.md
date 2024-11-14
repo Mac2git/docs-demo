@@ -2407,7 +2407,7 @@ create table students(
 
 3. 实体类 => 【Students】
 
-   ```
+   ```java
    package com.camemax.pojo;
    
    import org.apache.ibatis.type.Alias;

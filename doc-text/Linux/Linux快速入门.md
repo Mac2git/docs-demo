@@ -1780,7 +1780,8 @@ systemctl restart firewalld.service
    [Errno 12] curl#35 - Timeout
    
    # 正确推荐使用国内的添加yum源
-   wget -O /etc/yum.repos.d/docker-ce.repo http://mirrors.aliyun.com/docker-ce//Linux/centos/docker-ce.repo
+    wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+   yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
    ```
 
    ![image-20230105180851554](/Linux/image-20230105180851554.png)

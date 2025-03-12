@@ -79,6 +79,10 @@ export default defineConfig({
           text:'狂神说SpringBoot',
           link:'/doc-text/Java/springboot/什么是SpringBoot',
           activeMatch:'/doc-text/Java/springboot/什么是SpringBoot'
+        },{
+          text:'狂神说SpringCloud_netfix',
+          link:'/doc-text/Java/springcloudNetflix/SpringCloud',
+          activeMatch:'/doc-text/Java/springcloudNetflix/SpringCloud'
         }]
       },{
         link:'/doc-text/emu/emu01',

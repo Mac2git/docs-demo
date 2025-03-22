@@ -222,7 +222,7 @@ getset：将给定key的值设为value，并返回key的旧值（old value）。
 
 >它的底层实际是个双向链表，对两端的操作性能很高，通过索引下标的操作中间的节点性能会较差
 
-![](D:\HBuilder X wrok\docs-demo\public\redisImages\list.png)
+![](/redisImages/list.png)
 
 ### 常用操作命令(L是从左到右，R是从右到左)
 
@@ -605,7 +605,7 @@ zrevrank zset v1 # 获得逆序的下标值
 
 `Bit arrays （or simply bitmaps，我们可以称之为位图）`
 
-<img src="D:\HBuilder X wrok\docs-demo\public\redisImages\bitmaps.png" style="zoom:60%;" />
+<img src="/redisImages/bitmaps.png" style="zoom:60%;" />
 
 一个字节(一个byte)=8位
 

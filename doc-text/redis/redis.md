@@ -619,7 +619,7 @@ zrevrank zset v1 # 获得逆序的下标值
 
 说白了就是通过`bitfield`命令我们可以一次性对比多个比特位域进行操作。
 
-## 流（Stream）
+## 流（Stream)
 
 `Redis Stream`是 `Redis 5.0`版本新增加的数据结构。
 

@@ -34,4 +34,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3  # 使用 gh-pages 部署工具
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token
-          publish_dir: ./docs/.vitepress/dist  # VitePress 构建输出的目录
+          publish_dir: .vitepress/dist  # VitePress 构建输出的目录

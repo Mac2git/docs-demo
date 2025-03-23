@@ -182,16 +182,16 @@
 
    双击generator
 
-   ![](D:\HBuilder X wrok\docs-demo\public\generatorImage\4.png)
+   ![](/generatorImage/4.png)
 
    静静等待生成即可
 
 6. 效果
 
-![](D:\HBuilder X wrok\docs-demo\public\generatorImage\1.png)
+![](/generatorImage/1.png)
 
-![2](D:\HBuilder X wrok\docs-demo\public\generatorImage\2.png)
+![2](/generatorImage/2.png)
 
-![3](D:\HBuilder X wrok\docs-demo\public\generatorImage\3.png)
+![3](/generatorImage/3.png)
 
 >刚才创建表的注释也加载到实体类里面了！

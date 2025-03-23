@@ -38,7 +38,7 @@ export default defineConfig({
       },
       {
         link:'/doc-text/一键生成mapper和实体类/generator',
-        text:"一键生成mapper层和实体类",
+        text:"一键生成mapper和实体类",
         activeMatch:'/doc-text/一键生成mapper和实体类/generator' 
       },
       { text: '前端', items:[

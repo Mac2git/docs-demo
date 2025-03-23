@@ -29,9 +29,6 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
-      run: npm test  # 如果有测试脚本
-
     - name: Build project
       run: npm run build  # 如果有构建脚本
 

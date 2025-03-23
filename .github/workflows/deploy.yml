@@ -1,39 +1,37 @@
-name: Node.js CI/CD
+name: Deploy VitePress to GitHub Pages
 
 on:
   push:
     branches:
       - main  # 只在 main 分支上触发
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [19.x]  # 指定 Node.js 版本
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      # 2. 设置 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19  # 使用 Node.js 18.x
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build project
-      run: npm run docs:build  # 如果有构建脚本
+      # 4. 构建 VitePress 项目
+      - name: Build VitePress
+        run: npm run build
 
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main'  # 只在 main 分支上部署
-      run: |
-        npm install -g gh-pages  # 安装 gh-pages
-        npm run deploy  # 运行部署脚本
+      # 5. 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3  # 使用 gh-pages 部署工具
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token
+          publish_dir: ./docs/.vitepress/dist  # VitePress 构建输出的目录

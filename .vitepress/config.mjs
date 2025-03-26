@@ -92,6 +92,10 @@ export default defineConfig({
           text:'SpringCloud',
           link:'/doc-text/Java/springcloud/springcloud',
           activeMatch:'/doc-text/Java/springcloud/springcloud'
+        },{
+          text:'SpringCloudAlibaba',
+          link:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba',
+          activeMatch:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba'
         }]
       },{
         link:'/doc-text/emu/emu01',
@@ -592,6 +596,16 @@ export default defineConfig({
             text:'POM包',
             link:'/doc-text/Java/springboot/SpringBootPom包'
           }]
+        },{
+          text:"SpringCloud Alibaba",
+          collapsed:true,
+          items:[
+            {
+              text:'SpringCloudAlibaba',
+              link:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba'
+            }
+          ]
         }]
       },
       {

@@ -6,7 +6,7 @@
 
 ***简而言之：拒绝大型单体应用，基于业务边界进行服务微化拆分，各个服务独立部署运行。***
 
-![img](https://cdn.nlark.com/yuque/0/2024/png/1613913/1733297310596-6a264038-d7d3-43b6-9883-c0d70c43d678.png)
+![img](/alibabaImage/1733297310596-6a264038-d7d3-43b6-9883-c0d70c43d678.png)
 
 
 
@@ -41,7 +41,7 @@
 
 在分布式系统中，各个服务可能处于不同主机，但是服务之间不可避免的需要互相调用，我们称为远程调用。 SpringCloud 中使用 HTTP+JSON 的方式完成远程调用
 
-![img](https://cdn.nlark.com/yuque/0/2024/png/1613913/1733297496168-259c804b-17cc-4f14-9127-9eb0f56c049b.png)
+![img](/alibabaImage/1733297496168-259c804b-17cc-4f14-9127-9eb0f56c049b.png)
 
 
 
@@ -59,7 +59,7 @@
 
 - **散列：**根据请求源的 IP 的散列（hash）来选择要转发的服务器。这种方式可以一定程度上保证特定用户能连接到相同的服务器。如果你的应用需要处理状态而要求用户能连接到和之前相同的服务器，可以考虑采取这种方式。
 
-![img](https://cdn.nlark.com/yuque/0/2024/png/1613913/1733297584522-54991385-dc66-4e94-a9a0-159da79227f6.png)
+![img](/alibabaImage/1733297584522-54991385-dc66-4e94-a9a0-159da79227f6.png)
 
 
 
@@ -67,7 +67,7 @@
 
 A 服务调用 B 服务，A 服务并不知道 B 服务当前在哪几台服务器有，哪些正常的，哪些服务已经下线。解决这个问题可以引入注册中心；
 
-![img](https://cdn.nlark.com/yuque/0/2024/png/1613913/1733297640042-15e7635e-8726-489a-a4e6-05d87c8bd2db.png)
+![img](/alibabaImage/d2db.png)
 
 如果某些服务下线，我们其他人可以实时的感知到其他服务的状态，从而避免调用不可用的服务
 
@@ -81,7 +81,7 @@ A 服务调用 B 服务，A 服务并不知道 B 服务当前在哪几台服务�
 
 ***配置中心用来集中管理微服务的配置信息***
 
-![img](https://cdn.nlark.com/yuque/0/2024/png/1613913/1733297744486-dd9818fa-80c0-4cfa-b7d2-1bff28f60afa.png)
+![img](/alibabaImage/fa.png)
 
 
 
@@ -89,7 +89,7 @@ A 服务调用 B 服务，A 服务并不知道 B 服务当前在哪几台服务�
 
 在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务。
 
-![img](https://cdn.nlark.com/yuque/0/2024/png/1613913/1733297804203-30703d21-c64d-4013-9fd1-06bd4e52c47f.png)
+![img](/alibabaImage/52c47f.png)
 
 
 
@@ -107,7 +107,7 @@ A 服务调用 B 服务，A 服务并不知道 B 服务当前在哪几台服务�
 
 在微服务架构中，API Gateway 作为整体架构的重要组件，它***抽象了微服务中都需要的公共功能***，同时提供了客户端**负载均衡**，**服务自动熔断**，**灰度发布**，**统一认证**，**限流流控**，**日志统计**等丰富的功能，帮助我们解决很多 API 管理难题。
 
-![img](https://cdn.nlark.com/yuque/0/2024/png/1613913/1733297890520-ad75a281-4de7-4f76-b9d6-f4f74f718a16.png)
+![img](/alibabaImage/718a16.png)
 
 # Spring Cloud Alibaba 是什么
 
@@ -121,7 +121,7 @@ Spring Cloud Alibaba 致力于提供微服务开发的一站式解决方案。�
 
 Spring Cloud 是分布式微服务架构的一站式解决方案，它提供了一套简单易用的编程模型，使我们能在 Spring Boot 的基础上轻松地实现微服务系统的构建。 **Spring Cloud 提供以微服务为核心的分布式系统构建标准。**
 
-![spring-cloud](https://sca.aliyun.com/img/overview-doc-img/spring-cloud-img.png)
+![spring-cloud](/alibabaImage/spring-cloud-img.png)
 
 Spring Cloud 本身并不是一个开箱即用的框架，它是一套微服务规范，共有两代实现。
 
@@ -130,7 +130,7 @@ Spring Cloud 本身并不是一个开箱即用的框架，它是一套微服务�
 
 ## Spring Cloud Alibaba 定位
 
-![spring-cloud](https://sca.aliyun.com/img/overview-doc-img/spring-cloud-alibaba-img.png)
+![spring-cloud](/alibabaImage/spring-cloud-alibaba-img.png)
 
 Spring Cloud Alibaba 是阿里巴巴结合自身丰富的微服务实践而推出的微服务开发的一站式解决方案，是 Spring Cloud 第二代实现的主要组成部分。吸收了 Spring Cloud Netflix 微服务框架的核心架构思想，并进行了高性能改进。自 Spring Cloud Netflix 进入停更维护后，Spring Cloud Alibaba 逐渐代替它成为主流的微服务框架。
 
@@ -216,11 +216,11 @@ Nacos 的关键特性包括:
 2. `spring-cloud`：2023.0.3
 3. `springboot`：3.3.4
 
-# 搭建项目
+## 搭建项目
 
 1. 搭建一个这个目录的项目
 
-   ![image-20250326181953606](D:\HBuilder X wrok\docs-demo\public\alibabaImage\image-20250326181953606.png)
+   ![image-20250326181953606](/alibabaImage/image-20250326181953606.png)
 
 2. 在`study-spring-cloud-alibaba`项目下添加依赖
 
@@ -285,7 +285,7 @@ Nacos 的关键特性包括:
 
 6. 解压完成之后，进入bin文件夹下在`cmd`输入 `startup.cmd -m standalone`启动`Nacos`
 
-7. ![image-20250326183208176](D:\HBuilder X wrok\docs-demo\public\alibabaImage\image-20250326183208176.png)
+7. ![image-20250326183208176](/alibabaImage/image-20250326183208176.png)
 
 8. 启动完成之后我们访问`localhost:8848/nacos`来访问`Nacos`
 
@@ -336,10 +336,325 @@ Nacos 的关键特性包括:
 
       4. 访问`localhost:8848/nacos`
 
-      5. ![image-20250326193343921](D:\HBuilder X wrok\docs-demo\public\alibabaImage\image-20250326193343921.png)
+      5. ![image-20250326193343921](/alibabaImage/image-20250326193343921.png)
 
       6. 从图中看的我们的两个服务已经注册到`Nacos`上了
 
          >注意：
          >
          >​	`Nacos`必须开启，要不然访问不到
+
+## 服务发现
+
+服务发现是一种允许服务之间相互发现和通信的机制
+
+服务发现是一种**允许服务之间相互发现和通信的机制**。服务发现包括服务注册和服务查找两个过程。服务注册是指服务将自己的网络地址注册到服务注册中心。服务查找是指服务通过查询服务注册中心来获取其他服务的网络地址。服务发现的优点是提高了系统的灵活性和可扩展性，无需关心服务的具体位置，只需要知道服务的名称。服务发现还需要提供健康监控、多种查询、实时更新和高可用性等特性。
+
+开启服务发现：
+
+1. 在启动类上添加服务发现的注解 `@EnableDiscoveryClient`
+
+2. 获取端口号，主机名字
+
+   ```java
+   @Autowired
+   private DiscoveryClient discoveryClient;
+   @Test
+   void discoveryTest(){
+       //获取所有服务
+       List<String> services = discoveryClient.getServices();
+       for (String service : services) {
+           // 根据服务获取所有实例
+           List<ServiceInstance> instances = discoveryClient.getInstances(service);
+           for (ServiceInstance instance : instances) {
+               //主机地址
+               System.out.println("host："+instance.getHost());
+               //获取url
+               System.out.println("uri："+instance.getUri());
+               //获取端口号
+               System.out.println("port："+instance.getPort());
+           }
+       }
+   }
+   ```
+
+3. 测试结果
+
+   ![image-20250327215131828](/alibabaImage/image-20250327215131828.png)
+
+4. 使用`NacosDiscoveryClint`获取服务实例
+
+   ```java
+   @Resource
+   private NacosDiscoveryClient nacosDiscoveryClient;
+   
+   @Test
+   void nacosDiscoveryClientTest() {
+       // 获取所有服务
+       List<String> services = nacosDiscoveryClient.getServices();
+       for (String service : services) {
+           // 根据服务获取实例
+           for (ServiceInstance instance : nacosDiscoveryClient.getInstances(service)) {
+               //主机地址
+               System.out.println("host："+instance.getHost());
+               // 端口号
+               System.out.println("port："+instance.getPort());
+               System.out.println("uri："+instance.getUri());
+               System.out.println("实例id："+instance.getInstanceId());
+           }
+       }
+   }
+   ```
+
+   ![image-20250327215734279](/alibabaImage/image-20250327215734279.png)
+
+## 远程调用
+
+在Spring Cloud中，远程调用是微服务架构中非常重要的一部分。它允许一个服务调用另一个服务的API，从而实现服务之间的通信。Spring Cloud提供了多种方式来实现远程调用，主要包括**RestTemplate**和**Feign**，我们就有 `RestTemplate`来实现远程调用，我们要用订单远程调用商品
+
+1. 在`study-spring-cloud-alibab`下新建一个`model`模块作为公共模块，在存放`service-order`和`service-product`的公共模块,在下面在引入`lombok`依赖
+
+   ![image-20250327225354669](/alibabaImage/image-20250327225354669.png)
+
+2. 在`model`创建`Order实体类`和`Product实体类`
+
+   1. `Order实体类`
+
+      ```java
+      package com.lazy.cloud.order.bean;
+      
+      @Data
+      @AllArgsConstructor
+      @NoArgsConstructor
+      public class Order {
+          private Long id;
+          private BigDecimal totalAmount;
+          private Long userId;
+          private String address;
+          private List<Product> productList;
+      }
+      
+      ```
+
+   2. `Product实体类`
+
+      ```java
+      package com.lazy.cloud.product.bean;
+      
+      @Data
+      @AllArgsConstructor
+      @NoArgsConstructor
+      public class Product {
+          private Long id;
+          private BigDecimal price;
+          private String productName;
+          private Integer num;
+      }
+      
+      ```
+
+   3. 在`service-order`和`service-product`的父项`service`引入`model`
+
+      ```bash
+      <dependency>
+          <groupId>com.lazy.cloud</groupId>
+          <artifactId>model</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
+      ```
+
+   4. `service-product`
+
+      1. `service`
+
+         ```java
+         package com.lazy.cloud.service;
+         
+         public interface ProductService {
+             Product addProduct(Long productId);
+         }
+         ```
+
+      2. `impl`
+
+         ```java
+         package com.lazy.cloud.service.impl;
+         
+         @Service
+         public class ProductServiceImpl implements ProductService {
+         
+             @Override
+             public Product addProduct(Long productId) {
+                 return new Product(productId,new BigDecimal("20.0"),"苹果"+productId,2);
+             }
+         }	
+         ```
+
+      3. `controller`
+
+         ```java
+         package com.lazy.cloud.controller;
+         
+         @RestController
+         public class ProductController {
+         
+             @Resource
+             private ProductService productService;
+         
+             @GetMapping("/product/{productId}")
+             public Product getProduct(@PathVariable("productId") Long productId) {
+                 return productService.addProduct(productId);
+             }
+         }
+         
+         ```
+
+      4. 测试`service-product`
+
+         ![image-20250327230127411](/alibabaImage/image-20250327230127411.png)
+
+   5. `service-order`
+
+      1. `service`
+
+         ```java
+         package com.lazy.cloud.service;
+         
+         public interface OrderService {
+             Order addOrder(Long userId, Long productId);
+         }
+         ```
+
+      2. `impl`
+
+         ```java
+         package com.lazy.cloud.service.impl;
+         
+         @Slf4j
+         @Service
+         public class OrderServiceImpl implements OrderService {
+         
+             @Resource
+             private DiscoveryClient discoveryClient;
+         
+             @Resource
+             private RestTemplate restTemplate;
+         
+             @Override
+             public Order addOrder(Long userId, Long productId) {
+                 Product product = getProductFormRemote(productId);
+                 BigDecimal price = product.getPrice().multiply(new BigDecimal(product.getNum()));
+         
+                 return new Order(userId,price,productId,"河北", List.of(product));
+             }
+         
+             public Product getProductFormRemote(Long productId) {
+                 //获取商品所在的所有机器的IP+Port
+                 List<ServiceInstance> instances = discoveryClient.getInstances("service-product");
+                 log.info("远程请求调用{}",instances.get(0).getUri());
+                 String url = instances.get(0).getUri()+"/product/"+productId;
+         
+                 return restTemplate.getForObject(url, Product.class);
+             }
+         }
+         ```
+
+      3. `config`配置`RestTemplate`
+
+         ```java
+         package com.lazy.cloud.config;
+         
+         @Configuration
+         public class OrderServiceConfig {
+         
+             @Bean
+             public RestTemplate restTemplate() {
+                 return new RestTemplate();
+             }
+         }
+         
+         ```
+
+         
+
+      4. `controller`
+
+         ```java
+         package com.lazy.cloud.controller;
+         
+         @RestController
+         public class OrderController {
+         
+             @Resource
+             private OrderService orderService;
+         
+             @GetMapping("/addOrder")
+             public Order addOrder(
+                     @RequestParam("userId") Long userId,
+                     @RequestParam("productId") Long productId
+             ) {
+                 return orderService.addOrder(userId, productId);
+             }
+         }
+         
+         ```
+
+      5. 测试`service-product`,要启动`service-product`和`service-order`
+
+         ![image-20250327230508764](/alibabaImage/image-20250327230508764.png)
+
+## 负载均衡
+
+当我们的`service-product`服务崩了，随着我们的`service-order`服务也用不了了，所以我们要引入负载均衡	
+
+因为我们的`service-order`服务对我们的`service-product`进行调用，所以说服务调用者是`service-order`，对我们的`service-product`进行负载均衡
+
+1. 对我们的`service-order`引入负载均衡的依赖
+
+   ```bash
+   <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+   </dependency>
+   ```
+
+2. 修改`OrderServiceImpl`进行改造
+
+   ```java
+   package com.lazy.cloud.service.impl;
+   
+   @Slf4j
+   @Service
+   public class OrderServiceImpl implements OrderService {
+   
+       @Resource
+       private RestTemplate restTemplate;
+   
+       @Override
+       public Order addOrder(Long userId, Long productId) {
+           Product product = getProductFormRemoteWithLoadBalance(productId);
+           BigDecimal price = product.getPrice().multiply(new BigDecimal(product.getNum()));
+   
+           return new Order(userId,price,productId,"河北", List.of(product));
+       }
+   
+       @Resource
+       private LoadBalancerClient loadBalancer;
+   
+       public Product getProductFormRemoteWithLoadBalance(Long productId) {
+           //获取商品所在的所有机器的IP+Port
+           ServiceInstance serviceInstance = loadBalancer.choose("service-product");
+           log.info("远程请求调用{}",serviceInstance.getUri());
+           String url = serviceInstance.getUri()+"/product/"+productId;
+   
+           return restTemplate.getForObject(url, Product.class);
+       }
+   }
+   
+   ```
+
+3. 运行测试
+
+   当我们运行多次后发现，已经实现了负载均衡
+
+   ![image-20250327232746247](/alibabaImage/image-20250327232746247.png)

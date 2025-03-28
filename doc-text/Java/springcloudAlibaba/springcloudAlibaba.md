@@ -35,56 +35,6 @@
 
 ***节点：集群中的一个服务器***
 
-
-
-## 1.3. **远程调用**
-
-在分布式系统中，各个服务可能处于不同主机，但是服务之间不可避免的需要互相调用，我们称为远程调用。 SpringCloud 中使用 HTTP+JSON 的方式完成远程调用
-
-![img](/alibabaImage/1733297496168-259c804b-17cc-4f14-9127-9eb0f56c049b.png)
-
-
-
-
-
-## 1.4. **负载均衡**
-
-分布式系统中，A 服务需要调用 B 服务，B 服务在多台机器中都存在，A 调用任意一个服务器均可完成功能。 为了使每一个服务器都不要太忙或者太闲，我们可以负载均衡的调用每一个服务器，提升网站的健壮性。 
-
-***常见的负载均衡算法：*** 
-
-- **轮询：**为第一个请求选择健康池中的第一个后端服务器，然后按顺序往后依次选择，直到最后一个，然后循环。 
-
-- **最小连接：**优先选择连接数最少，也就是压力最小的后端服务器，在会话较长的情况下可以考虑采取这种方式。 
-
-- **散列：**根据请求源的 IP 的散列（hash）来选择要转发的服务器。这种方式可以一定程度上保证特定用户能连接到相同的服务器。如果你的应用需要处理状态而要求用户能连接到和之前相同的服务器，可以考虑采取这种方式。
-
-![img](/alibabaImage/1733297584522-54991385-dc66-4e94-a9a0-159da79227f6.png)
-
-
-
-## 1.5. **服务注册/发现&注册中心**
-
-A 服务调用 B 服务，A 服务并不知道 B 服务当前在哪几台服务器有，哪些正常的，哪些服务已经下线。解决这个问题可以引入注册中心；
-
-![img](/alibabaImage/d2db.png)
-
-如果某些服务下线，我们其他人可以实时的感知到其他服务的状态，从而避免调用不可用的服务
-
-
-
-
-
-## 1.6. **配置中心**
-
-每一个服务最终都有大量的配置，并且每个服务都可能部署在多台机器上。我们经常需要变更配置，我们可以让每个服务在配置中心获取自己的配置。 
-
-***配置中心用来集中管理微服务的配置信息***
-
-![img](/alibabaImage/fa.png)
-
-
-
 ## 1.7. **服务熔断&服务降级**
 
 在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务。
@@ -344,7 +294,13 @@ Nacos 的关键特性包括:
          >
          >​	`Nacos`必须开启，要不然访问不到
 
-## 服务发现
+## 服务注册/发现&注册中心
+
+A 服务调用 B 服务，A 服务并不知道 B 服务当前在哪几台服务器有，哪些正常的，哪些服务已经下线。解决这个问题可以引入注册中心；
+
+![img](/alibabaImage/d2db.png)
+
+如果某些服务下线，我们其他人可以实时的感知到其他服务的状态，从而避免调用不可用的服务
 
 服务发现是一种允许服务之间相互发现和通信的机制
 
@@ -409,6 +365,12 @@ Nacos 的关键特性包括:
    ![image-20250327215734279](/alibabaImage/image-20250327215734279.png)
 
 ## 远程调用
+
+在分布式系统中，各个服务可能处于不同主机，但是服务之间不可避免的需要互相调用，我们称为远程调用。 SpringCloud 中使用 HTTP+JSON 的方式完成远程调用
+
+![img](/alibabaImage/1733297496168-259c804b-17cc-4f14-9127-9eb0f56c049b.png)
+
+
 
 在Spring Cloud中，远程调用是微服务架构中非常重要的一部分。它允许一个服务调用另一个服务的API，从而实现服务之间的通信。Spring Cloud提供了多种方式来实现远程调用，主要包括**RestTemplate**和**Feign**，我们就有 `RestTemplate`来实现远程调用，我们要用订单远程调用商品
 
@@ -605,6 +567,20 @@ Nacos 的关键特性包括:
 
 ## 负载均衡
 
+分布式系统中，A 服务需要调用 B 服务，B 服务在多台机器中都存在，A 调用任意一个服务器均可完成功能。 为了使每一个服务器都不要太忙或者太闲，我们可以负载均衡的调用每一个服务器，提升网站的健壮性。 
+
+***常见的负载均衡算法：*** 
+
+- **轮询：** 为第一个请求选择健康池中的第一个后端服务器，然后按顺序往后依次选择，直到最后一个，然后循环。 
+
+- **最小连接：** 优先选择连接数最少，也就是压力最小的后端服务器，在会话较长的情况下可以考虑采取这种方式。 
+
+- **散列：** 根据请求源的 IP 的散列（hash）来选择要转发的服务器。这种方式可以一定程度上保证特定用户能连接到相同的服务器。如果你的应用需要处理状态而要求用户能连接到和之前相同的服务器，可以考虑采取这种方式。
+
+![img](/alibabaImage/1733297584522-54991385-dc66-4e94-a9a0-159da79227f6.png)
+
+### LoadBalancer负载均衡
+
 当我们的`service-product`服务崩了，随着我们的`service-order`服务也用不了了，所以我们要引入负载均衡	
 
 因为我们的`service-order`服务对我们的`service-product`进行调用，所以说服务调用者是`service-order`，对我们的`service-product`进行负载均衡
@@ -658,3 +634,566 @@ Nacos 的关键特性包括:
    当我们运行多次后发现，已经实现了负载均衡
 
    ![image-20250327232746247](/alibabaImage/image-20250327232746247.png)
+   
+   ### 基于注解的负载均衡
+   
+   1. 改造`OrderServiceConfig`
+   
+      ```java
+      package com.lazy.cloud.config;
+      
+      @Configuration
+      public class OrderServiceConfig {
+      
+          @Bean
+          @LoadBalanced
+          public RestTemplate restTemplate() {
+              return new RestTemplate();
+          }
+      }
+      ```
+   
+   2. 改造`OrderServiceImpl`类
+   
+      ```java
+      package com.lazy.cloud.service.impl;
+      
+      @Slf4j
+      @Service
+      public class OrderServiceImpl implements OrderService {
+      
+          @Resource
+          private RestTemplate restTemplate;
+      
+      
+          @Override
+          public Order addOrder(Long userId, Long productId) {
+              Product product = getProductFormRemoteWithLoadBalanceAnnotation(productId);
+              BigDecimal price = product.getPrice().multiply(new BigDecimal(product.getNum()));
+      
+              return new Order(userId,price,productId,"河北", List.of(product));
+          }
+          // 基于注解的负载均衡
+          public Product getProductFormRemoteWithLoadBalanceAnnotation(Long productId) {
+              String url = "http://service-product/product/"+productId;
+              log.info("远程请求调用{}",url);
+              return restTemplate.getForObject(url, Product.class);
+          }
+      }
+      ```
+   
+   3. 运行测试，访问`localhost:8000/addOrder?userId=1&productId=100](http://localhost:8000/addOrder?userId=1&productId=100`
+   
+      ![image-20250328181459804](D:\HBuilder X wrok\docs-demo\public\alibabaImage\4.png)
+   
+      ![image-20250328181508786](D:\HBuilder X wrok\docs-demo\public\alibabaImage\6.png)
+
+# 小结
+
+## **如果注册中心宕机，远程调用是否可以成功？**
+
+1. 从未调用过，如果宕机，调用会立即失败
+2. 调用过，如果宕机，因为会缓存名单，调用会成功
+3. 调用过，如果注册中心和对方服务宕机，因为会缓存名单，调用会阻塞后失败（Connection Refused）
+
+![img](D:\HBuilder X wrok\docs-demo\public\alibabaImage\81.png)
+
+# 配置中心
+
+主要提示：
+
+![image-20250328224501029](/alibabaImage/9.png)
+
+每一个服务最终都有大量的配置，并且每个服务都可能部署在多台机器上。我们经常需要变更配置，我们可以让每个服务在配置中心获取自己的配置。 
+
+***配置中心用来集中管理微服务的配置信息***
+
+![img](/alibabaImage/fa.png)
+
+## 1、使用@value和@RefreshScope自动刷新
+
+1. 在`service`下引入依赖
+
+   ```bash
+   <dependency>
+       <groupId>com.alibaba.cloud</groupId>
+       <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+   </dependency>
+   ```
+
+2. 在`service-order`编写配置文件
+
+   ```yaml
+   spring:
+     application:
+       name: service-order
+     cloud:
+       nacos:
+         server-addr: 127.0.0.1:8848 # nacos 服务地址和端口号
+     config:
+       import: nacos:service-order.properties # nacos 配置列表的名字
+   server:
+     port: 8000
+   ```
+
+3. 打开`nacos`创建`service-order.properties`
+
+   ![image-20250328203049848](/alibabaImage/18.png)
+
+4. 点击创建配置、创建`service-order.properties`
+
+   ![image-20250328203254934](/alibabaImage/34.png)
+
+5. 点击发布
+
+   ![image-20250328203317623](/alibabaImage/623.png)
+
+6. 编写`controller`类来进行测试
+
+   ```java
+   package com.lazy.cloud.controller;
+   
+   @RestController
+   public class OrderController {
+   
+       @Value("${order.timeout}")
+       private String timeout;
+       @Value("${order.auto-confirm}")
+       private String autoConfirm;
+   
+       @GetMapping("/config")
+       public String config() {
+           return "timeout："+timeout+"\nauto-confirm"+autoConfirm;
+       }
+   
+   }
+   ```
+
+7. 运行测试一下
+
+   ![image-20250328203656304](/alibabaImage/20250328203656304.png)
+
+8. 发现已经，可以访问了，我们在修改一下`service-order.properties`，测试一下看看本地是否变
+
+   ![image-20250328203803399](/alibabaImage/03399.png)
+
+9. 在刷新一下，配置文件变了，本地没有变
+
+   ![image-20250328203845610](/alibabaImage/-20250328203845610.png)
+
+10. 我们在改造一下`controller`类，让他实现实时刷新
+
+    ```java
+    package com.lazy.cloud.controller;
+    
+    import com.lazy.cloud.order.bean.Order;
+    import com.lazy.cloud.service.OrderService;
+    import jakarta.annotation.Resource;
+    import org.springframework.beans.factory.annotation.Value;
+    import org.springframework.cloud.context.config.annotation.RefreshScope;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.RequestParam;
+    import org.springframework.web.bind.annotation.RestController;
+    
+    @RefreshScope // 配置自动刷新
+    @RestController
+    public class OrderController {
+    
+        @Value("${order.timeout}")
+        private String timeout;
+        @Value("${order.auto-confirm}")
+        private String autoConfirm;
+    
+        @GetMapping("/config")
+        public String config() {
+            return "timeout："+timeout+"\nauto-confirm"+autoConfirm;
+        }
+    }
+    ```
+
+11. 在运行一下看看，发现配置已经变了
+
+    ![image-20250328204107416](/alibabaImage/250328204107416.png)
+
+12. 我们在变回来试试
+
+    ![image-20250328204146150](/alibabaImage/image-20250328204146150.png)
+
+发现配置实现了实时刷新！
+
+>注意：
+>​	如果导入了`spring-cloud-starter-alibaba-nacos-config`依赖就必须编写`spring.config.import`配置，不然启动的时候，启动不起来，或者添加`spring.cloud.nacos.config.import-check.enabled=false`也行。`spring.cloud.nacos.config.import-check.enabled=false`是禁用导入检查
+
+## 2、使用@ConfigurationProperties无感刷新
+
+1. 导入`spring-cloud-starter-alibaba-nacos-config`依赖
+
+2. 新建`OrderProerties`类
+
+   ```java
+   package com.lazy.cloud.config;
+   
+   @Component
+   @ConfigurationProperties(prefix = "order") //配置批量绑定在nacos下，可以无需@RefreshScope就能实现自动刷新
+   @Data
+   public class OrderProperties {
+       private String timeout;
+       private String autoConfirm;
+   }
+   
+   ```
+
+3. `controller`
+
+   ```java
+   package com.lazy.cloud.controller;
+   
+   @RestController
+   public class OrderController {
+   
+       @Resource
+       private OrderService orderService;
+   
+   
+       @Resource
+       private OrderProperties orderProperties;
+   
+       @GetMapping("/config")
+       public String config() {
+           return "timeout："+orderProperties.getTimeout()+"\nauto-confirm"+orderProperties.getAutoConfirm();
+       }
+   }
+   ```
+
+4. 运行测试
+
+   ![image-20250328205953330](/alibabaImage/image-20250328205953330.png)
+
+5. 修改`service-order.properties`,再刷新
+
+   ![image-20250328210102666](/alibabaImage/image-20250328210102666.png)
+
+发现可以实现无感刷新
+
+## 配置监听变换
+
+需求，当我们发现` service-order.properties`配置文件修改后，发生短信通知配置文件已修改
+
+```java
+package com.lazy.cloud;
+
+@SpringBootApplication
+public class ServiceOrderApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ServiceOrderApplication.class, args);
+    }
+    //1、项目启动就监听配置文件变化
+    //2、发生变换后拿到变化值
+    //3、发生邮件
+    /**
+     * ApplicationRunner 是一个一次性任务，项目启动成功后，这个任务就会执行
+     * @return
+     */
+    @Bean
+    ApplicationRunner applicationRunner(NacosConfigManager configManager) {
+        return args -> {
+            ConfigService configService = configManager.getConfigService();
+            configService.addListener("service-order.properties", "DEFAULT_GROUP", new Listener() {
+                // 线程池,Executors.newFixedThreadPool(4) new 了4个线程
+                @Override
+                public Executor getExecutor() {
+                    return Executors.newFixedThreadPool(4);
+                }
+                // receiveConfigInfo 接受所有变化了的配置
+                @Override
+                public void receiveConfigInfo(String s) {
+                    System.out.println("变化了的配置："+s);
+                    System.out.println("邮件通知...");
+                }
+            });
+        };
+    }
+}
+
+```
+
+启动测试，当我们修改`service-order.properties`配置文件后，看看控制台打印什么
+
+![image-20250328211705854](/alibabaImage/image-20250328211705854.png)
+
+## nacos重启后配置还会有吗？
+
+会，配置会保存到本地
+
+![image-20250328213407805](/alibabaImage/image-20250328213407805.png)
+
+官方解释
+
+![image-20250328213727113](/alibabaImage/image-20250328213727113.png)
+
+## `Nacos`中的数据集和`application.properties`中有相同的配置项，那个先生效
+
+在Nacos中，当配置中心（Nacos Server）中的数据集（如通过`dataId`和`groupId`指定的配置）与本地`application.properties`文件中存在**相同配置项**时，**生效优先级**取决于以下规则：
+
+------
+
+### **1. 默认情况下：Nacos配置中心的优先级更高**
+
+- **Nacos配置会覆盖本地配置**。即如果Nacos Server和`application.properties`有相同的配置项，Nacos中的值会生效。
+- **原因**：Spring Cloud Alibaba Nacos Config默认将远程配置（Nacos）作为高优先级源，本地配置作为低优先级源。这是通过`PropertySource`的顺序实现的（Nacos的配置通常被添加到`Environment`的前部）。
+
+------
+
+### **2. 关键配置项：`spring.cloud.nacos.config.override-none`**
+
+如果希望本地配置优先，可以通过以下配置显式控制：
+
+```properties
+# 设置为true时，本地配置优先（默认false）
+spring.cloud.nacos.config.override-none=true
+```
+
+- **`false`（默认）**：Nacos配置覆盖本地配置。
+- **`true`**：本地配置优先，Nacos中的同名配置不生效。
+
+------
+
+### **3. 验证顺序**
+
+可以通过以下方式查看实际生效的配置：
+
+1. **检查`Environment`中的属性顺序**：
+
+   ```java
+   @Autowired
+   private Environment env;
+   
+   // 打印所有PropertySource
+   ((AbstractEnvironment) env).getPropertySources().forEach(System.out::println);
+   ```
+
+   - 输出中排名靠前的`PropertySource`优先级更高（如Nacos的配置通常以`NACOS`开头）。
+
+2. **直接获取配置值**：
+
+   ```java
+   @Value("${your.config.key}")
+   private String configValue;
+   ```
+
+   观察实际注入的值是来自Nacos还是本地。
+
+------
+
+### **4. 动态刷新与本地配置**
+
+- 即使`Nacos`配置覆盖了本地配置，当`Nacos`中的配置**动态更新**时，应用也会实时生效（需配合`@RefreshScope`注解）。
+- 本地`application.properties`的配置是静态的，启动后无法动态修改。
+
+------
+
+### **总结**
+
+| 场景                              | 生效配置                         |
+| :-------------------------------- | :------------------------------- |
+| 默认情况（`override-none=false`） | `Nacos`配置优先                  |
+| 显式设置`override-none=true`      | 本地`application.properties`优先 |
+
+## 配置中心-数据隔离
+
+在企业研发过程中，通常需要在多个环境中进行开发、测试和部署，以确保生产环境的稳定性。`Nacos`提供了一种优雅的方式来实现环境隔离，确保不同环境的数据和配置互不干扰。
+
+环境隔离的概念
+
+环境是指一整套独立的系统，包括网关、服务框架、微服务注册中心、配置中心、消息系统、缓存、数据库等组件，用于处理特定类别的请求。环境隔离的主要目的是提高系统的可用性和稳定性，避免故障影响到整个系统。
+
+`Nacos`实现环境隔离的方法
+
+`Nacos`通过以下几种方式实现环境隔离：
+
+1. **网段划分**：利用IP地址的网段划分不同的环境。例如，192.168.1.0/24属于环境A，192.168.2.0/24属于环境B。通过这种方式，不同网段的`Nacos`客户端会自动获取到不同的`Nacos`服务端IP列表，实现环境隔离。
+2. **命名空间（Namespace）**：命名空间用于进行租户粒度的配置隔离，不同的命名空间下可以存在相同的Group或Data ID的配置。在`Nacos`的管理界面中，可以创建新的命名空间，并在配置文件中指定命名空间ID，以实现配置的隔离。
+3. **配置分组（Group）**：通过配置分组，可以将不同环境的配置文件进行区分。例如，开发环境的配置文件可以使用Group=DEV，测试环境的配置文件可以使用Group=TEST。在配置文件中指定不同的Group，就能对应到不同的配置文件。
+
+步骤：
+
+1. 在`Nacos`创建3个环境，分别为开发环境(`dev`)、测试环境(`test`)、生产环境(`prod`)
+
+2. ![image-20250328215833735](/alibabaImage/image-20250328215833735.png)
+
+3. 按照这个顺序创建
+
+   ![image-20250328215908057](/alibabaImage/image-20250328215908057.png)
+
+4. `commont.properties`在`dev`环境下的配置文件，`prod`环境各加1，`test`环境各加2
+
+   ![image-20250328220316072](/alibabaImage/image-20250328220316072.png)
+
+5. `database.properties`在`dev`环境下的配置文件，`prod`环境换成`order.db_url=order_prod`,`test`环境换成`order.db_url=order_test`![image-20250328220602433](/alibabaImage/image-20250328220602433.png)
+
+6. `common.properties`商品在`dev`环境下的配置文件，`prod`环境各加10，`test`环境各加10
+
+   ![image-20250328220908201](/alibabaImage/image-20250328220908201.png)
+
+7. 结果
+
+   ![image-20250328221320164](/alibabaImage/image-20250328221320164.png)
+
+   ![image-20250328221340427](/alibabaImage/image-20250328221340427.png)
+
+   ![image-20250328221358203](/alibabaImage/image-20250328221358203.png)
+
+   
+
+   ## 读取`nacos`上的配置文件并显示
+
+   配置文件
+
+   ```yaml
+   server:
+     port: 8000
+   spring:
+     profiles:
+       active: dev # 激活那个环境
+     application:
+       name: service-order
+     cloud:
+       nacos:
+         server-addr: 127.0.0.1:8848 # nacos 服务地址和端口号
+         config:
+           namespace: ${spring.profiles.active:dev} # 要读取 nacos 的配置,默认为dev环境
+   ---
+   spring:
+     config:
+       import:
+        - nacos:common.properties?group=order # nacos 配置列表的名字
+        - nacos:database.properties?group=order
+       activate:
+         on-profile: dev # 动态激活判断，如果当前是 dev 环境才会生效
+   ---
+   spring:
+     config:
+       import:
+         - nacos:common.properties?group=order # nacos 配置列表的名字
+         - nacos:database.properties?group=order
+       activate:
+         on-profile: prod # 动态激活判断，如果当前是 prod 环境才会生效
+   ---
+   spring:
+     config:
+       import:
+         - nacos:common.properties?group=order # nacos 配置列表的名字
+         - nacos:database.properties?group=order
+       activate:
+         on-profile: test # 动态激活判断，如果当前是 test 环境才会生效
+   ```
+
+   实体类
+
+   ```java
+   package com.lazy.cloud.config;
+   
+   import lombok.Data;
+   import org.springframework.boot.context.properties.ConfigurationProperties;
+   import org.springframework.stereotype.Component;
+   
+   @Component
+   @ConfigurationProperties(prefix = "order") //配置批量绑定在nacos下，可以无需@RefreshScope就能实现自动刷新
+   @Data
+   public class OrderProperties {
+       private String timeout;
+       private String autoConfirm;
+       private String dbUrl;
+   }
+   ```
+
+   `controller`
+
+   ```java
+   package com.lazy.cloud.controller;
+   
+   @RestController
+   public class OrderController {
+   
+       @Resource
+       private OrderProperties orderProperties;
+   
+       @GetMapping("/config")
+       public String config() {
+           return "timeout="+orderProperties.getTimeout()
+                   +"auto-confirm="+orderProperties.getAutoConfirm()
+                   +"db-url="+orderProperties.getDbUrl();
+       }
+   
+   }
+   ```
+
+   测试
+
+   ![image-20250328225403518](/alibabaImage/image-20250328225403518.png)
+
+   我们切换到`prod`环境下试试
+
+   ![image-20250328225446750](/alibabaImage/image-20250328225446750.png)
+
+   发现我们已经成功了！
+
+   ## `Nacos`拉取`data-id`的注意事项
+
+   >在 Nacos Spring Cloud 中，`dataId` 的完整格式如下：
+   >
+   >- `prefix` 默认为 `spring.application.name` 的值，也可以通过配置项 `spring.cloud.nacos.config.prefix`来配置。
+   >- `spring.profiles.active` 即为当前环境对应的 profile，详情可以参考 [Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html#boot-features-profiles)。 **注意：当 `spring.profiles.active` 为空时，对应的连接符 `-` 也将不存在，dataId 的拼接格式变成 `${prefix}.${file-extension}`**
+   >- `file-exetension` 为配置内容的数据格式，可以通过配置项 `spring.cloud.nacos.config.file-extension` 来配置。目前只支持 `properties` 和 `yaml` 类型。
+
+总结：先拉取不带后缀名的，类似于`data`在拉取代后缀名的，类似与`data.properties/yaml`最后拉取，带当前对应环境的`data.properties.dev`
+
+## 从远程更换端口号
+
+1. 在`nacos`上创建好文件,和配置
+
+   ![image-20250328235251100](/alibabaImage/image-20250328235251100.png)
+
+2. 在`application.yaml`中引用文件
+
+   ```yaml
+   spring:
+     profiles:
+       active: dev # 激活那个环境
+     application:
+       name: service-order
+     cloud:
+       nacos:
+         server-addr: 127.0.0.1:8848 # nacos 服务地址和端口号
+         config:
+           namespace: ${spring.profiles.active:dev} # 要读取 nacos 的配置,默认为dev环境
+   ---
+   spring:
+     config:
+       import:
+        - nacos:common.properties?group=order # nacos 配置列表的名字
+        - nacos:database.properties?group=order
+       activate:
+         on-profile: dev # 动态激活判断，如果当前是 dev 环境才会生效
+   ---
+   spring:
+     config:
+       import:
+         - nacos:common.properties?group=order # nacos 配置列表的名字
+         - nacos:database.properties?group=order
+       activate:
+         on-profile: prod # 动态激活判断，如果当前是 prod 环境才会生效
+   ---
+   spring:
+     config:
+       import:
+         - nacos:common.properties?group=order # nacos 配置列表的名字
+         - nacos:database.properties?group=order
+       activate:
+         on-profile: test # 动态激活判断，如果当前是 test 环境才会生效
+   ```
+
+3. 启动测试
+
+![image-20250328235418981](/alibabaImage/image-20250328235418981.png)

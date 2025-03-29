@@ -1197,3 +1197,686 @@ spring.cloud.nacos.config.override-none=true
 3. 启动测试
 
 ![image-20250328235418981](/alibabaImage/image-20250328235418981.png)
+
+# `OpenFeign`
+
+`OpenFeign`客户端是一个web声明式http远程调用工具，直接可以根据服务名称去注册中心拿到指定的服务`IP`集合，提供了接口和注解方式进行调用，内嵌集成了Ribbon本地负载均衡器。
+
+## `feign`和`OpenFeign`的区别
+
+1、底层都是内置了Ribbon，去调用注册中心的服务。
+2、Feign是`Netflix`公司写的，是SpringCloud组件中的一个轻量级RESTful的HTTP服务客户端，是SpringCloud中的第一代负载均衡客户端。
+3、OpenFeign是SpringCloud自己研发的，在Feign的基础上支持了Spring MVC的注解，如@RequesMapping等等。是SpringCloud中的第二代负载均衡客户端。
+4、Feign本身不支持Spring MVC的注解，使用Feign的注解定义接口，调用这个接口，就可以调用服务注册中心的服务
+5、OpenFeign的@FeignClient可以解析SpringMVC的@RequestMapping注解下的接口，并通过动态代理的方式产生实现类，实现类中做负载均衡并调用其他服务。
+
+## `Springcloud alibaba集成OpenFeign`
+
+### 业务API
+
+1. 在`service`下引入依赖
+
+   ```bash
+   <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-openfeign</artifactId>
+   </dependency>
+   ```
+
+2. 在`service-order`下类
+
+   ```java
+   package com.lazy.cloud.feign;
+   
+   @FeignClient("service-product")
+   public interface OrderOpenFeignClient {
+       @GetMapping("/product/{productId}")
+       public Product getProduct(@PathVariable("productId") Integer productId);
+   }
+   ```
+
+3. `serviceImpl`层，其他的不变
+
+   ```java
+   package com.lazy.cloud.service.impl;
+   
+   @Service
+   public class OrderServiceImpl implements OrderService {
+   
+       @Resource
+       private OrderOpenFeignClient orderOpenFeignClient;
+   
+       @Override
+       public Order addOrder(Long userId, Long productId) {
+           Product product = orderOpenFeignClient.getProduct(productId);
+           BigDecimal price = product.getPrice().multiply(new BigDecimal(product.getNum()));
+   
+           return new Order(userId, price, productId, "河北", List.of(product));
+       }
+   }
+   ```
+
+4. 主启动类上添加`@EnableFeignClients`
+
+5. 启动`service-order`服务和`service-product`，测试一下
+
+   ![image-20250329124113893](/alibabaImage/image-20250329124113893.png)
+
+### 远程调用-业务API（第三方API）
+
+1. 引入`OpenFeign`依赖
+
+   ```bash
+   <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-openfeign</artifactId>
+   </dependency>
+   ```
+
+2. 编写`feignClient`接口
+
+   ```java
+   package com.lazy.cloud.feign;
+   
+   /**
+    * url 为请求的网址
+    * value 因为不是本底的，随便起的名
+    */
+   @FeignClient(value = "hot-client",url = "https://whyta.cn")
+   public interface HotOpenFeignClient {
+   
+       /**
+        *
+        * @param key 网址需要请求的参数
+        * @return 返回今日头条热搜榜
+        */
+       @GetMapping("/api/toutiao")
+       public String getTou(@RequestParam("key") String key);
+   
+   }
+   ```
+
+3. 在主启动类上添加`@EnableFeignClients`注解
+
+4. 在测试类上测试
+
+   ```java
+   package com.lazy.cloud;
+   
+   @SpringBootTest
+   public class HotOpenFeignClientTest {
+       @Autowired
+       private HotOpenFeignClient hotOpenFeignClient;
+       @Test
+       public void test() {
+           System.out.println(hotOpenFeignClient.getTou("36de5db81215"));
+       }
+   }
+   ```
+
+5. 结果
+
+   ![image-20250329132341658](/alibabaImage/image-20250329132341658.png)
+
+## 客户端负载均衡和服务端负载均衡的区别
+
+![image-20250329133059782](/alibabaImage/image-20250329133059782.jpeg)
+
+服务端的负载均衡是一个url先经过一个代理服务器（这里是nginx），然后通过这个代理服务器通过算法（轮询，随机，权重等等）反向代理你的服务，来完成负载均衡。
+而客户端的负载均衡则是一个请求在客户端的时候已经通过eureka获取了要调用服务的集群信息，然后通过具体的负载均衡算法来完成调用具体某个服务。
+简而言之，服务端负载均衡需要先经过nginx代理服务器才能知道调用服务的集群信息。而客户端负载均衡请求在客户端的时候就已经知道了调用服务的集群信息。
+
+### **关键对比总结**
+
+| **维度**       | **客户端负载均衡**                | **服务端负载均衡**               |
+| :------------- | :-------------------------------- | :------------------------------- |
+| **决策位置**   | 客户端                            | 独立的负载均衡器（代理层）       |
+| **性能**       | 更优（无中间跳转）                | 略低（需经过代理）               |
+| **复杂度**     | 客户端逻辑复杂                    | 客户端无需感知负载逻辑           |
+| **服务发现**   | 强依赖（如Eureka）                | 可选（如Nginx手动配置或结合DNS） |
+| **多语言支持** | 差（需各语言实现）                | 好（客户端透明）                 |
+| **典型工具**   | Ribbon、Spring Cloud LoadBalancer | Nginx、HAProxy、AWS ELB          |
+
+## OpenFeign日志
+
+![image-20250329134927000](/alibabaImage/image-20250329134927000.png)
+
+如何开启日志
+
+1. 添加配置文件，配置日志
+
+   ```yaml
+   logging:
+     level:
+       com.lazy.cloud.feign: debug # com.lazy.cloud.feign包名，可以精确到类名，debug级别
+   ```
+
+2. 添加`@Bean`
+
+   ```java
+   @Configuration
+   public class FooConfiguration {
+   	@Bean
+   	Logger.Level feignLoggerLevel() { //Logger一定要导入 feign包下的
+   		return Logger.Level.FULL;
+   	}
+   }
+   ```
+
+   ![image-20250329135316724](/alibabaImage/image-20250329135316724.png)
+
+3. 测试
+
+   ![image-20250329135518987](/alibabaImage/image-20250329135518987.png)
+
+## 超时控制
+
+如果商品服务一直连接不上，或`API`读取慢，或读不到，有可能会造成服务雪崩的问题，针对这个问题我们要使用超时控制来解决！
+
+我们引入超时控制，来解决这个问题，我们设置上请求多少秒，为超时，如果超时，会返回“网络繁忙”，或者“兜底数据”，兜底数据，需要结合`Sentinel `来实现，以我们现在的技术只能返回"网络繁忙"
+
+超时分两种`connectTimeout(超时控制，默认为10秒)`和`readTimeout(读取超时，默认为60秒)`我们可以通过配置修改它的超时时间
+
+![image-20250329142157162](/alibabaImage/image-20250329142157162.png)
+
+`application.yml`
+
+```yaml
+server:
+  port: 8000
+spring:
+  profiles:
+    active: dev # 激活那个环境
+    include: feign # 包含feign
+  application:
+    name: service-order
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848 # nacos 服务地址和端口号
+logging:
+  level:
+    com.lazy.cloud.feign: debug
+```
+
+`application-feign.yaml`
+
+```yaml
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default: # 默认配置
+            read-timeout: 3000 # 读取时间为3秒
+            connect-timeout: 2000 # 连接时间
+          service-product:
+            read-timeout: 5000
+            connect-timeout: 5000
+```
+
+修改`service-product`项目的`controller`类，让他睡上20秒
+
+```yaml
+package com.lazy.cloud.controller;
+
+@RestController
+public class ProductController {
+
+    @Resource
+    private ProductService productService;
+
+    @GetMapping("/product/{productId}")
+    public Product getProduct(@PathVariable("productId") Long productId) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(20);
+        System.out.println("productController");
+        return productService.addProduct(productId);
+    }
+}
+
+```
+
+启动测试一下
+
+![image-20250329142655489](/alibabaImage/image-20250329142655489.png)
+
+使用默认配置再试试
+
+![image-20250329142747168](/alibabaImage/image-20250329142747168.png)
+
+## 重试机制
+
+远程调用超时失败后，还可以进行多次尝试，如果某次返回ok，如果多次依然失败则结束调用，返回错误
+
+但是`OpenFeign`,默认没有使用重试机制
+
+![image-20250329143126800](/alibabaImage/image-20250329143126800.png)
+
+默认重试器，间隔100毫秒，最大间隔1秒，默认重试5次
+
+因为第一次重试是100毫秒，第二次间隔100*1.5毫秒，第三次间隔100\*1.5\*1.5毫秒，依次类推，最大间隔1秒
+
+![image-20250329143627640](/alibabaImage/image-20250329143627640.png)
+
+添加重试
+
+```java
+package com.lazy.cloud.config;
+
+@Configuration
+public class OrderServiceConfig {
+
+    @Bean
+    public Retryer retryer() {
+        return new Retryer.Default();
+    }
+}
+```
+
+运行测试，发现打印了五次`productController`,重试了五次
+
+![image-20250329144613068](/alibabaImage/image-20250329144613068.png)
+
+>这个重试机制，是加上设置的超时时间，再加上延迟等待时间
+
+## `OpenFeign`拦截器
+
+请求拦截器`RequestInterceptor`
+
+​	发送请求时，由请求拦截器进行最后拦截，可以对请求进行定制修改
+
+响应拦截器`ResponseInterceptor`
+
+​	可以对响应的数据进行预处理
+
+需求，`service-order`定义`XTokenInterceptor`拦截器，向`service-product`发送请求的时候带上`x-token`：
+
+### 第一种方式
+
+```java
+package com.lazy.cloud.interceptor;
+
+/**
+ * 请求拦截器
+ */
+@Component 
+public class XTokenInterceptor implements RequestInterceptor { //如果是响应拦截器的话就实现ResponseInterceptor
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        requestTemplate.header("x-token", UUID.randomUUID().toString());
+    }
+}
+```
+
+`service-product`
+
+```java
+package com.lazy.cloud.controller;
+
+@RestController
+public class ProductController {
+
+    @Resource
+    private ProductService productService;
+
+    @GetMapping("/product/{productId}")
+    public Product getProduct(@PathVariable("productId") Long productId, HttpServletRequest request) throws InterruptedException {
+        System.out.println("productController===="+request.getHeader("x-token"));
+        return productService.addProduct(productId);
+    }
+}
+```
+
+发起`http://localhost:8000/addOrder?userId=1&productId=100`
+
+![image-20250329151745802](/alibabaImage/image-20250329151745802.png)
+
+### 第二种方式
+
+```java
+package com.lazy.cloud.interceptor;
+
+/**
+ * 请求拦截器
+ */
+public class XTokenInterceptor implements RequestInterceptor {
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        requestTemplate.header("x-token", UUID.randomUUID().toString());
+    }
+}
+```
+
+`yaml`
+
+```yaml
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default: # 默认配置
+            read-timeout: 3000 # 读取时间为3秒
+            connect-timeout: 2000 # 连接时间
+          service-product:
+            read-timeout: 5000
+            connect-timeout: 5000
+            request-interceptors: # 只在 service-product 服务下生效
+              - com.lazy.cloud.interceptor.XTokenInterceptor 
+```
+
+`service-product`不变
+
+![image-20250329152119166](/alibabaImage/image-20250329152119166.png)
+
+## FallBack
+
+`FallBack`：兜底返回
+
+>注意：
+>
+>​	此功能需要整合`sentienl`才能实现
+
+整合`FallBack`
+
+1. 添加`sentienl`依赖
+
+   ```bahs
+   <dependency>
+       <groupId>com.alibaba.cloud</groupId>
+       <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+   </dependency>
+   ```
+
+2. 编写`OrderOpenFeignFallBack`实现`OrderOpenFeign`接口
+
+   ```java
+   package com.lazy.cloud.feign.fallback;
+   
+   @Component
+   public class OrderOpenFeignClientFallBack implements OrderOpenFeignClient {
+       @Override
+       public Product getProduct(Long productId) {
+           Product product = new Product(productId,new BigDecimal("0"),"未知商品",0);
+           return product;
+       }
+   }
+   ```
+
+3. 在`OrderOpenFeignClient`类配置，兜底返回
+
+   ```java
+   package com.lazy.cloud.feign;
+   
+   @FeignClient(value = "service-product",fallback = OrderOpenFeignClientFallBack.class) //fallback 配置兜底返回
+   public interface OrderOpenFeignClient {
+       @GetMapping("/product/{productId}")
+       public Product getProduct(@PathVariable("productId") Long productId);
+   }
+   
+   ```
+
+4. 开启熔断功能
+
+   ```yaml
+   feign:
+     sentinel:
+       enabled: true
+   ```
+
+5. 先启动`service-order`，不启动`service-product`，看看能不能实现兜底返回
+
+   ![image-20250329155150900](/alibabaImage/image-20250329155150900.png)
+
+6. 在启动`service-product`
+
+   ![image-20250329155245335](/alibabaImage/image-20250329155245335.png)
+
+# Sentinel
+
+## Sentinel 介绍
+
+随着微服务的流行，服务和服务之间的稳定性变得越来越重要。Sentinel 是面向分布式、多语言异构化服务架构的流量治理组件，主要以流量为切入点，从流量路由、流量控制、流量整形、熔断降级、系统自适应过载保护、热点流量防护等多个维度来帮助开发者保障微服务的稳定性。
+
+随着微服务的流行，服务和服务之间的稳定性变得越来越重要。[Sentinel](https://sentinelguard.io/) 以流量为切入点，从流量控制、流量路由、熔断降级、系统自适应过载保护、热点流量防护等多个维度保护服务的稳定性。
+
+Sentinel 具有以下特征:
+
+- **丰富的应用场景**：Sentinel 承接了阿里巴巴近 10 年的双十一大促流量的核心场景，例如秒杀（即突发流量控制在系统容量可以承受的范围）、消息削峰填谷、集群流量控制、实时熔断下游不可用应用等。
+- **完备的实时监控**：Sentinel 同时提供实时的监控功能。您可以在控制台中看到接入应用的单台机器秒级数据，甚至 500 台以下规模的集群的汇总运行情况。
+- **广泛的开源生态**：Sentinel 提供开箱即用的与其它开源框架/库的整合模块，例如与 Spring Cloud、Apache Dubbo、gRPC、Quarkus 的整合。您只需要引入相应的依赖并进行简单的配置即可快速地接入 Sentinel。同时 Sentinel 提供 Java/Go/C++ 等多语言的原生实现。
+- **完善的 SPI 扩展机制**：Sentinel 提供简单易用、完善的 SPI 扩展接口。您可以通过实现扩展接口来快速地定制逻辑。例如定制规则管理、适配动态数据源等。
+
+![image-20250329155245335](/alibabaImage/image.png)
+
+## 架构原理
+
+![img](/alibabaImage/1735526575167-31e5bca5-ba78-48da-b248-ebbeafff8c03.png)
+
+
+
+
+
+## 工作流程
+
+[Sentinel工作流程](https://sentinelguard.io/zh-cn/docs/basic-implementation.html)
+
+## 资源&规则
+
+定义资源：
+
+- 主流框架自动适配（Web Servlet、Dubbo、Spring Cloud、gRPC、Spring WebFlux、Reactor）；所有Web接口均为资源
+- 编程式：SphU API
+- 声明式：@SentinelResource
+
+定义规则：
+
+- 流量控制规则
+- 熔断降级规则
+- 系统保护规则
+- 来源访问控制规则
+- 热点参数规则
+
+![img](/alibabaImage/1735532694911-6d15ba90-0852-4116-be85-a1bcdaa94d11.png)
+
+## 整合`sentinel`
+
+下载[Sentinel](https://github.com/alibaba/Sentinel)
+
+1. 引入依赖
+
+   ```bash
+   <dependency>
+       <groupId>com.alibaba.cloud</groupId>
+       <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+   </dependency>
+   ```
+
+2. 配置文件
+
+   ```yaml
+   spring:
+     cloud:
+       sentinel:
+         transport:
+           dashboard: localhost:8080
+         eager: true # sentinel 进行提前加载，不然访问不到 sentinel
+   ```
+
+3. 启动下载好的`jar`包
+
+   通过 `java -jar jar包名字`
+
+   ![image-20250329162622483](/alibabaImage/image-20250329162622483.png)
+
+   默认什么也没有
+
+   ![image-20250329162714931](/alibabaImage/image-20250329162714931.png)
+
+4. 启动服务，再刷新一下，发现可以正常访问了！
+
+   ![image-20250329162946630](/alibabaImage/image-20250329162946630.png)
+
+5. 设置流控规则，每秒最多可以发生1个请求
+
+   1. 添加保护资源注解
+
+      ```java
+      package com.lazy.cloud.service.impl;
+      
+      @Slf4j
+      @Service
+      public class OrderServiceImpl implements OrderService {
+          @Resource
+          private OrderOpenFeignClient orderOpenFeignClient;
+      
+          @SentinelResource(value = "createOrder") // 设置addOrder是sentinel的资源
+          @Override
+          public Order addOrder(Long userId, Long productId) {
+              Product product = orderOpenFeignClient.getProduct(productId);
+              BigDecimal price = product.getPrice().multiply(new BigDecimal(product.getNum()));
+              return new Order(userId, price, productId, "河北", List.of(product));
+          }
+      }
+      ```
+
+   2. 我们对`addOrder`设置保护规则，允许一秒只能发送一个请求
+
+      ![image-20250329164924802](/alibabaImage/image-20250329164924802.png)
+
+   3. 如果我们一秒发送了两个请求，会显示
+
+      ![image-20250329164802832](/alibabaImage/image-20250329164802832.png)
+
+如果我们想定义`code,data`那样的数据，需要实现`BlockExceptionHandler`，去重写里面的方法
+
+### 1.实现`BlockExceptionHandler`处理异常
+
+1. 在`model`添加公用返回的格式`R`实体类
+
+   ```java
+   package com.lazy.cloud.common;
+   
+   @Data
+   @AllArgsConstructor
+   @NoArgsConstructor
+   public class R {
+       private Integer code;
+       private String msg;
+       private Object data;
+   
+       public static R ok() {
+           return new R(200, "ok", null);
+       }
+       public static R ok(Object data) {
+           return new R(200, "ok", data);
+       }
+       public static R error(Integer code, String msg) {
+           return new R(code, msg, null);
+       }
+       public static R error(){
+           return new R(500, "error", null);
+       }
+   }
+   ```
+
+2. 编写`MyBlockExceptionHandler`去实现`BlockExceptionHandler`
+
+   ```java
+   package com.lazy.cloud.exception;
+   
+   @Component
+   public class MyBlockExceptionHandler implements BlockExceptionHandler {
+       private final ObjectMapper objectMapper = new ObjectMapper();
+       @Override
+       public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String s, BlockException e) throws Exception {
+           httpServletResponse.setContentType("application/json;charset=utf-8"); //设置响应编码格式，一定要设置在第一行，不然不生效
+           PrintWriter writer = httpServletResponse.getWriter();
+           R r = new R();
+           r.setCode(500);
+           r.setMsg(s+"被sentinel限制了，原因"+e.getClass());
+           writer.write(objectMapper.writeValueAsString(r));
+           writer.flush(); // 刷新数据
+           writer.close(); // 关闭 PrintWriter
+       }
+   }
+   ```
+
+3. 运行测试，因为我们的`sentinel`是在内存中存放的，我们重启服务后需要重新去定义流控规则
+
+   ![image-20250329171632965](/alibabaImage/image-20250329171632965.png)
+
+4. 点击新增，再试试
+
+   ![image-20250329171811360](/alibabaImage/image-20250329171811360.png)
+
+### 2、自定义处理异常
+
+![image-20250329173136872](/alibabaImage/image-20250329173136872.png)
+
+
+
+如果我们给`createOrder`添加流控规则后
+
+![image-20250329175604173](/alibabaImage/image-20250329175604173.png)
+
+会提示
+
+![image-20250329175637737](/alibabaImage/image-20250329175637737.png)
+
+`springboot`的默认错误，但我们想要使用兜底操作，怎么办？
+
+```java
+package com.lazy.cloud.service.impl;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    @SentinelResource(value = "createOrder",blockHandler = "addOrderFallBack") // blockHandler 添加兜底操作，兜底操作的方法名
+    @Override
+    public Order addOrder(Long userId, Long productId) {
+//        Product product = getProductFormRemoteWithLoadBalanceAnnotation(productId);
+        Product product = orderOpenFeignClient.getProduct(productId);
+        BigDecimal price = product.getPrice().multiply(new BigDecimal(product.getNum()));
+
+        return new Order(userId, price, productId, "河北", List.of(product));
+    }
+    public Order addOrderFallBack(Long userId, Long productId, BlockException exception) {
+        return new Order(0L, new BigDecimal("0"), productId, "未知地址", null);
+    }
+}
+```
+
+我们在运行测试一下，我们给`createOrder`添加流控规则
+
+![image-20250329180015974](/alibabaImage/image-20250329180015974.png)
+
+![image-20250329180025251](/alibabaImage/image-20250329180025251.png)
+
+官网解释：
+
+![image-20250329172755125](/alibabaImage/image-20250329172755125.png)
+
+### 3、OpenFeign异常
+
+当我们给`GET:http://service-product/product/{productId}`添加异常看看，这个会走那个兜底回调
+
+![image-20250329180715347](/alibabaImage/image-20250329180715347.png)
+
+![image-20250329180909214](/alibabaImage/image-20250329180909214.png)
+
+可以看出他是调用我们的第二个方法(自定义处理异常)，假如第二个没有了，看看他会调用那个
+
+```java
+package com.lazy.cloud.feign.fallback;
+
+@Component
+public class OrderOpenFeignClientFallBack implements OrderOpenFeignClient {
+    @Override
+    public Product getProduct(Long productId) {
+        Product product = new Product(productId,new BigDecimal("0"),"未知商品",0);
+        return product;
+    }
+}
+```
+
+![image-20250329181705929](/alibabaImage/image-20250329181705929.png)

@@ -2048,7 +2048,7 @@ spring:
 
 为了理解漏桶算法，我们看一下对于该算法的示意图：
 
-![image](/alibabaImage/bVdeApa)
+![image](/alibabaImage/bVdeApa.png)
 
 从图中我们可以看到，整个算法其实十分简单。首先，我们有一个固定容量的桶，有水流进来，也有水流出去。
 

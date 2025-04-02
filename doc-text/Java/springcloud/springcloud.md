@@ -160,7 +160,7 @@ spring:
 
 导入依赖
 
-```cmd
+```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-consul-discovery</artifactId>
@@ -295,7 +295,7 @@ consul配置说明
 
 1. 在我们的8001项目中，引入依赖
 
-   ```cmd
+   ```xml
    <!--SpringCloud consul config-->
    <dependency>
        <groupId>org.springframework.cloud</groupId>
@@ -487,7 +487,7 @@ LoadBalancer 在工作时分成两步：
 
    添加依赖
 
-   ```apl
+   ```xml
    <!--loadbalancer-->
    <dependency>
        <groupId>org.springframework.cloud</groupId>
@@ -607,7 +607,7 @@ public class RestTemplateConfig {
 
 2. 添加pom依赖
 
-   ```cmd
+   ```xml
    <dependencies>
        <!--openfeign-->
        <dependency>
@@ -1025,7 +1025,7 @@ OpenFeign中http client如果不做特殊配置，OpenFeign默认使用JDK自带
 
 在`cloud-consumer-fegin-order80`添加pom依赖
 
-```cmd
+```xml
 <!-- httpclient5-->
 <dependency>
     <groupId>org.apache.httpcomponents.client5</groupId>
@@ -1334,7 +1334,7 @@ CircuitBreaker 通过有限状态机实现，具有三种正常状态：CLOSED�
 
    1. 新增依赖
 
-      ```cmd
+      ```xml
       <!--resilience4j-circuit breaker-->
       <dependency>
           <groupId>org.springframework.cloud</groupId>

@@ -2315,13 +2315,11 @@ public Order seckillFallback(Long userId, Long productId, BlockException excepti
       ```
 
    2. 省略添加热点规则
-
-   3. ![image-20250330173625241](/alibabaImage/image-20250330173625241.png)
+      ![](/alibabaImage/image-20250330173625241.png)
 
 2. `fallback`
 
    1. 代码
-
       ```java
       @GetMapping("/seckill")
       @SentinelResource(value = "seckill-order",fallback = "seckillFallback")
@@ -2333,7 +2331,6 @@ public Order seckillFallback(Long userId, Long productId, BlockException excepti
           order.setId(Long.MAX_VALUE); // Long的最大值
           return order;
       }
-      
       public Order seckillFallback(Long userId, Long productId, Throwable exception) {
           Order order = orderServiceImpl.addOrder(userId, productId);
           order.setId(productId);
@@ -2342,12 +2339,8 @@ public Order seckillFallback(Long userId, Long productId, BlockException excepti
           return order;
       }
       ```
-
    2. 省略添加热点规则
-
       ![image-20250330173904612](/alibabaImage/image-20250330173904612.png)
-
-      
 
 # Gateway网关
 
@@ -2755,7 +2748,7 @@ spring:
 | 名                               | 参数（个数/类型） | 作用                                              |
 | -------------------------------- | ----------------- | ------------------------------------------------- |
 | AddRequestHeader                 | 2/string          | 添加请求头                                        |
-| AddRequestHeadersIfNotPresent    | 1/List<string>    | 如果没有则添加请求头，key:value方式               |
+| AddRequestHeadersIfNotPresent    | 1/List\<string\>  | 如果没有则添加请求头，key:value方式               |
 | AddRequestParameter              | 2/string、string  | 添加请求参数                                      |
 | AddResponseHeader                | 2/string、string  | 添加响应头                                        |
 | CircuitBreaker                   | 1/string          | 仅支持forward:/inCaseOfFailureUseThis方式进行熔断 |

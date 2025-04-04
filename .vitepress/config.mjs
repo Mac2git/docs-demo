@@ -85,6 +85,10 @@ export default defineConfig({
           link:'/doc-text/Java/springboot/什么是SpringBoot',
           activeMatch:'/doc-text/Java/springboot/什么是SpringBoot'
         },{
+          text:'Redis7',
+          link:'/doc-text/redis/redis',
+          activeMatch:'/doc-text/redis/redis'
+        },{
           text:'狂神说SpringCloudNetfix',
           link:'/doc-text/Java/springcloudNetflix/SpringCloud',
           activeMatch:'/doc-text/Java/springcloudNetflix/SpringCloud'

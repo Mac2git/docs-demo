@@ -1198,6 +1198,55 @@ spring.cloud.nacos.config.override-none=true
 
 ![image-20250328235418981](/alibabaImage/image-20250328235418981.png)
 
+## Nacos集群配置和本地持久化配置
+
+# Nacos集群模式
+
+本部署手册是帮忙您快速在你的电脑上，下载安装并使用Nacos，部署生产使用的集群模式。
+
+### 集群部署架构图
+
+无论采用何种部署方式，推荐用户把Nacos集群中所有服务节点放到一个vip下面，然后挂到一个域名下面。
+
+`<http://ip1:port/openAPI>` 直连ip模式，机器挂则需要修改ip才可以使用。
+
+`<http://SLB:port/openAPI>` 挂载SLB模式(内网SLB，不可暴露到公网，以免带来安全风险)，直连SLB即可，下面挂server真实ip，可读性不好。
+
+`<http://nacos.com:port/openAPI>` 域名 + SLB模式(内网SLB，不可暴露到公网，以免带来安全风险)，可读性好，而且换ip方便，推荐模式
+
+![deployDnsVipMode.jpg](/alibabaImage/deploy-dns-vip-mode.svg)
+
+在使用VIP时，需要开放Nacos服务的主端口(默认8848)以及gRPC端口(默认9848)、同时如果对Nacos的主端口有所修改的话，需要对vip中的端口映射作出配置，具体端口的映射方式参考[部署手册概览-Nacos部署架构](https://nacos.io/docs/latest/manual/admin/deployment/deployment-overview/#1-Nacos部署架构)
+
+### 配置到mysql
+
+1. 安装数据库，版本要求：5.6.5+
+
+2. 新建`mysql-schema`库，把`nacos/conf`的`mysql-schema.sql`复制到数据库
+
+   1. ![image-20250404174959032](/alibabaImage/image-20250404174959032.png)
+   2. ![image-20250404175208957](/alibabaImage/image-20250404175208957.png)
+
+3. 修改配置文件
+
+   ![image-20250404175322497](/alibabaImage/image-20250404175322497.png)
+
+   ![image-20250404175614989](/alibabaImage/image-20250404175614989.png)
+
+4. 修改完重新启动
+
+   ![image-20250404175716337](/alibabaImage/image-20250404175716337.png)
+
+   启动成功，没有报错，证明修改好了！创建一个配置文件，看看数据库上有没有
+
+   ![image-20250404175920495](/alibabaImage/image-20250404175920495.png)
+
+   去mysql看看
+
+   ![image-20250404175942147](/alibabaImage/image-20250404175942147.png)
+
+   
+
 # `OpenFeign`
 
 `OpenFeign`客户端是一个web声明式http远程调用工具，直接可以根据服务名称去注册中心拿到指定的服务`IP`集合，提供了接口和注解方式进行调用，内嵌集成了Ribbon本地负载均衡器。

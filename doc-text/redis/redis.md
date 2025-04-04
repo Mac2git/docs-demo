@@ -1,9 +1,46 @@
 # Redis
 
+## 什么是Redis？
+
+Redis 是一个内存数据存储，被数百万开发者用作缓存、向量数据库、文档数据库、流式引擎和消息代理。Redis 具有内置的复制和不同级别的磁盘持久化。它支持复杂的数据类型（例如，字符串、散列、列表、集合、有序集合和 JSON），并为这些数据类型定义了原子操作。
+
+Redis 通常被称为数据结构服务器。这意味着 Redis 通过一组命令提供对可变数据结构的访问，这些命令通过 TCP 套接字和简单协议使用服务器-客户端模型发送。因此，不同的进程可以以共享的方式查询和修改相同的数据结构。
+
+Redis 实现的数据结构具有一些特殊的属性：
+
+1. Redis 会将其存储在磁盘上，即使它们总是被服务器内存中读取和修改。这意味着 Redis 速度快，但同时也非易失性。
+2. 数据结构的实现强调内存效率，因此 Redis 内部的数据结构可能比使用高级编程语言建模的相同数据结构模型使用更少的内存。
+3. Redis 提供了一系列数据库中常见的功能，如复制、可调的持久性级别、集群和高度可用性。
+
+## 下载Redis
+
+>**命名规则：**
+>
+>​	版本号第二位如果是奇数，则为非稳定版本，如2.7、2.9、3.1
+>
+>​	版本号第二位如果是偶数，则为文档版本，如2.6、2.8、3.0、3.2
+>
+>​	当前奇数版本就是下一个稳定版本的开发版本，如2.9版本是3.0版本的开发版本
+
+[下载Redis](https://redis.io/downloads/)
+
+## Redis7新特性
+
+| 多AOF文件支持                     | 7.0 版本中一个比较大的变化就是 aof 文件由一个变成了多个，主要分为两种类型：基本文件(base files)、增量文件(incr files)，请注意这些文件名称是复数形式说明每一类文件不仅仅只有一个。在此之外还引入了一个清单文件(manifest) 用于跟踪文件以及文件的创建和应用顺序（恢复） |
+| --------------------------------- | ------------------------------------------------------------ |
+| config命令增强                    | 对于Config Set 和Get命令，支持在一次调用过程中传递多个配置参数。例如，现在我们可以在执行一次Config Set命令中更改多个参数： config set maxmemory 10000001 maxmemory-clients 50% port 6399 |
+| 限制客户端内存使用Client-eviction | 一旦 Redis 连接较多，再加上每个连接的内存占用都比较大的时候， Redis总连接内存占用可能会达到maxmemory的上限，可以增加允许限制所有客户端的总内存使用量配置项，redis.config 中对应的配置项// 两种配置形式：指定内存大小、基于 maxmemory 的百分比。maxmemory-clients 1gmaxmemory-clients 10% |
+| listpack紧凑列表调整              | listpack 是用来替代 ziplist 的新数据结构，在 7.0 版本已经没有 ziplist 的配置了（6.0版本仅部分数据类型作为过渡阶段在使用）listpack 已经替换了 ziplist 类似 hash-max-ziplist-entries 的配置 |
+| 访问安全性增强ACLV2               | 在redis.conf配置文件中，protected-mode默认为yes，只有当你希望你的客户端在没有授权的情况下可以连接到Redis server的时候可以将protected-mode设置为no |
+| Redis Functions                   | Redis函数，一种新的通过服务端脚本扩展Redis的方式，函数与数据本身一起存储。简言之，redis自己要去抢夺Lua脚本的饭碗 |
+| RDB保存时间调整                   | 将持久化文件RDB的保存规则发生了改变，尤其是时间记录频度变化  |
+| 命令新增和变动                    | Zset (有序集合)增加 ZMPOP、BZMPOP、ZINTERCARD 等命令Set (集合)增加 SINTERCARD 命令LIST (列表)增加 LMPOP、BLMPOP ，从提供的键名列表中的第一个非空列表键中弹出一个或多个元素。 |
+| 性能资源利用率、安全、等改进      | 自身底层部分优化改动，Redis核心在许多方面进行了重构和改进主动碎片整理V2：增强版主动碎片整理，配合Jemalloc版本更新，更快更智能，延时更低HyperLogLog改进：在Redis5.0中，HyperLogLog算法得到改进，优化了计数统计时的内存使用效率，7更加优秀更好的内存统计报告 |
+
 Redis 命令
 
 ```cmd
-redis执行了make install后，redis的课执行文件都会自动复制到 /usr/local/bin 目录
+redis  执行了make install后，redis的课执行文件都会自动复制到 /usr/local/bin 目录
 redis-server        redis服务器
 redis-cli            redis命令行客户端
 redis-benchmark        redis性能测试工具
@@ -11,7 +48,7 @@ redis-check-aof        aof文件修复工具
 redis-check-dump    rdb文件检查工具
 ```
 
-启动Redis
+## 启动Redis
 
 1. 启动配置文件
 

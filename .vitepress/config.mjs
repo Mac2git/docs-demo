@@ -36,11 +36,6 @@ export default defineConfig({
       { text: '主页', 
         link: '/'
       },
-      {
-        link:'/doc-text/一键生成mapper和实体类/generator',
-        text:"一键生成mapper和实体类",
-        activeMatch:'/doc-text/一键生成mapper和实体类/generator' 
-      },
       { text: '前端', items:[
         {
           link:'/doc-text/bootstrap/bootstrap01',
@@ -100,7 +95,11 @@ export default defineConfig({
           text:'SpringCloudAlibaba',
           link:'/doc-text/Java/springcloudAlibaba/chapter01',
           activeMatch:'/doc-text/Java/springcloudAlibaba/chapter01'
-        }]
+        },{
+          link:'/doc-text/一键生成mapper和实体类/generator',
+          text:"一键生成mapper和实体类",
+          activeMatch:'/doc-text/一键生成mapper和实体类/generator' 
+        },]
       },{
         link:'/doc-text/emu/emu01',
         text:"汇编",
@@ -109,10 +108,6 @@ export default defineConfig({
         link:'/doc-text/wx/wx01',
         text:"微信小程序",
         activeMatch:'/doc-text/wx/wx01'
-      },
-      {
-        text:'编译原理',
-        link:'/doc-text/compile/编译原理01'
       },
       {
         text:'Android',
@@ -425,19 +420,6 @@ export default defineConfig({
           text:'第9章　广播组件Broadcast',link:'/doc-text/android/android16'
         },{
           text:'第10章　自定义控件',link:'/doc-text/android/android17'
-        }]
-      },{
-        text:'编译原理',
-        collapsed:true,
-        items:[{
-          text:'第一章引论',
-          link:'/doc-text/compile/编译原理01'
-        },{
-          text:'第二章文法和语言',
-          link:'/doc-text/compile/编译原理02'
-        },{
-          text:'练习题答案',
-          link:'/doc-text/compile/练习题答案'
         }]
       },{
         text:'Python',

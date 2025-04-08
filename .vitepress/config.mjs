@@ -98,8 +98,8 @@ export default defineConfig({
           activeMatch:'/doc-text/Java/springcloud/springcloud'
         },{
           text:'SpringCloudAlibaba',
-          link:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba',
-          activeMatch:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba'
+          link:'/doc-text/Java/springcloudAlibaba/chapter01',
+          activeMatch:'/doc-text/Java/springcloudAlibaba/chapter01'
         }]
       },{
         link:'/doc-text/emu/emu01',
@@ -605,9 +605,25 @@ export default defineConfig({
           collapsed:true,
           items:[
             {
-              text:'SpringCloudAlibaba',
-              link:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba',
-              activeMatch:'/doc-text/Java/springcloudAlibaba/springcloudAlibaba'
+              text:'SpringCloudAlibaba介绍',
+              link:'/doc-text/Java/springcloudAlibaba/chapter01',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter01'
+            },{
+              text:'OpenFign',
+              link:'/doc-text/Java/springcloudAlibaba/chapter02',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter02'
+            },{
+              text:'Sentinel',
+              link:'/doc-text/Java/springcloudAlibaba/chapter03',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter03'
+            },{
+              text:'GateWay',
+              link:'/doc-text/Java/springcloudAlibaba/chapter04',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter04'
+            },{
+              text:'Seata',
+              link:'/doc-text/Java/springcloudAlibaba/chapter05',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter05'
             }
           ]
         }]

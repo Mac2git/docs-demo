@@ -24,6 +24,135 @@ Redis 实现的数据结构具有一些特殊的属性：
 
 [下载Redis](https://redis.io/downloads/)
 
+## Linux安装Redis
+
+1. `getconf LONG_BIT`命令先看看是多少位的，一定要是64位
+
+2. Centos7安装`Redis`，先具备gcc环境
+
+   1. 查看是否具有`gcc`环境`gcc -v`
+
+      ![image-20250406143055527](/redisImages/image-20250406143055527.png)
+
+   2. 如果没有`gcc`环境，则通过`yum -y install gcc-c++`命令来安装`gcc`
+
+3. `Redis`官方建议版本升级到6.0.8以上
+
+   ![](/redisImages/redis.png)
+
+4. 下载命令`wget https://download.redis.io/releases/redis-7.0.0.tar.gz`
+
+   ![](/redisImages/redis安装.png)
+
+5. 进入`/opt`目录下解压`redis`，解压命令`tar -zxvf redis-7.0.0.tar.gz`
+
+   1. 解压后
+
+      ![image-20250406143750928](/redisImages/image-20250406143750928.png)
+
+6. 进入目录`cd redis-7.0.0`
+
+7. 在`redis-7.0.0`目录执行`make`命令
+
+   ![image-20250406144027413](/redisImages/image-20250406144027413.png)
+
+8. 查看默认安装目录：`usr/local/bin`
+
+   1. 安装完后查看
+
+      ![image-20250406144621148](/redisImages/image-20250406144621148.png)
+
+   2. `redis-benchmark`：性能测试工具，服务启动后运行该命令，看看自己笔记本性能如何
+
+   3. `redis-check-aof`：修复有问题的AOF文件
+
+   4. `redis-check-dump`：修复有问题的dump.rdb文件
+
+   5. <span style="color:#990000;">`redis-cli`：客户端，操作入口</span>
+
+   6. `redis-sentinel`：redis集群使用
+
+   7. <span style="color:#990000;">`redis-server`：redis服务器启动命令</span>
+
+9. 将默认的`redis.conf`拷贝到自己定义好的一个路径下，比如`/myredis`(如果改坏的话有备份)
+
+   ![image-20250406144745776](/redisImages/image-20250406144745776.png)
+
+10. 修改`/myredis`目录下`redis.conf`配置文件做初始化设置
+
+    ```cmd
+    redis.conf配置文件，改完后确保生效，记得重启，记得重启
+    
+       1 默认daemonize no              改为  daemonize yes
+    
+       2 默认protected-mode  yes    改为  protected-mode no
+    
+       3 默认bind 127.0.0.1             改为  直接注释掉(默认bind 127.0.0.1只能本机访问)或改成本机IP地址，否则影响远程IP连接
+    
+       4 添加redis密码                      改为 requirepass 你自己设置的密码
+    ```
+
+    ![image-20250406144910139](/redisImages/image-20250406144910139.png)
+
+    `daemonize yes`：在后台启动 
+
+    ![image-20250406144931933](/redisImages/image-20250406144931933.png)
+
+    `proteccted-mode no`：关闭保护模式
+
+    ![image-20250406144946561](/redisImages/image-20250406144946561.png)
+
+    `requirepass 密码`：添加redis密码
+
+11. 启动服务
+
+    `/usr/local/bin`目录下运行`redis-server`，启用`/myredis`目录下的`redis.conf`文件
+
+12. 连接服务
+
+    ![image-20250406145135039](/redisImages/image-20250406145135039.png)
+
+    Warning: Using a password with '-a' or '-u' option on the command line interface may not be safe.
+
+    我看着不爽，怎么办？
+
+     
+
+    warning 这串输出并不是普通输出，
+
+    shell的标准输出包含两种：
+
+    1（标准输出）
+
+    2（标准错误）我们的命令，即包含1也包含2，2即是我们想要去除的提示。
+
+     
+
+    解决办法将标准错误去除即可，追加2>/dev/null，将标准错误丢弃即可，就没有烦人的警告了。
+
+    ![image-20250406145229817](/redisImages/image-20250406145229817.png)
+
+13. 关闭
+
+    1. 单实例关闭：`redis-cli -a redis密码 shutdown` 
+    2. 多实例关闭，指定端口关闭：`redis-cli -p 6379 shutdown`
+
+## Redis卸载步骤
+
+1. 停止`redis-server`服务
+
+   ![image-20250406145603470](/redisImages/image-20250406145603470.png)
+
+2. 删除`/usr/local/lib`目录下与`redis`相关的文件
+
+   1. ls -l /usr/local/bin/redis-*
+   2. rm -rf /usr/local/bin/redis-*
+   3. ![image-20250406145719940](/redisImages/image-20250406145719940.png)
+
+
+
+​    
+
 ## Redis7新特性
 
 | 多AOF文件支持                     | 7.0 版本中一个比较大的变化就是 aof 文件由一个变成了多个，主要分为两种类型：基本文件(base files)、增量文件(incr files)，请注意这些文件名称是复数形式说明每一类文件不仅仅只有一个。在此之外还引入了一个清单文件(manifest) 用于跟踪文件以及文件的创建和应用顺序（恢复） |
@@ -81,15 +210,19 @@ redis-cli shutdown
 
 ## Redis十大数据类型：
 
-## 字符串（String）
+### 字符串（String）
 
 `String`是`redis`最基本的类型，一个`key`对应一个`value`
 
 `String`类型是二进制安全的（支持序列号），意思是`redis`的`String`可以包含任何数据，比如`jpg`图片或者序列号对象
 
-`String`类型是`Redis`最基本的数据类型，一个`Redis`中字符串`value`最多可以是512M
+`String`类型是`Redis`最基本的数据类型，一个`Redis`中字符串`value`最多可以是512MB
 
-### 常用的操作命令
+#### Redis键（key）
+
+![](/redisImages/key.png)
+
+
 
 1. `keys *`：查看当前库所有的key
 2. `exists key`：判断某个key是否存在
@@ -107,23 +240,24 @@ redis-cli shutdown
 
 >命令不区分大小写，但是名字区分大小写
 
-### String 类型的 API
+#### String 类型的 API
 
-#### set 指令
+![](/redisImages/string命令.png)
 
- `set key value [ex seconds]` ：设置带有过期时间的键值对 单位：秒,效果等同于`setex key seconds value`，成功返回“OK”，如果对在有效时间内存在的键值对重新使用该命令，则value会被覆盖，有效时间也会被覆盖，并重新开始计时。
+##### set 指令
 
-`set key value [px milliseconds] `：设置带有过期时间的键值对  单位：毫秒,效果等同于`psetex key milliseconds value`，成功返回“OK”。如果对在有效时间内存在的键值对重新使用该命令，则value会被覆盖，有效时间也会被覆盖，并重新开始计时。
+```cmd
+set key value [NX|XX] [GET] [EX seconds|PX milliseconds|EXAT unix-time-seconds|PXAT unix-time-milliseconds|KEEPTTL]
+```
 
-`set key value nx`： 设置key-value的键值对，如果之前该键key不存在，则设置执行
+![image-20250406163641212](/redisImages/image-20250406163641212.png)
 
-操作，返回值“OK”,如果之前键值对存在，则不会执行操作，返回“（nil）”，效果等同于`setnx key value`，但是后者成功返回值1，失败返回值0。
+1. `set key value [ex seconds]` ：设置带有过期时间的键值对 单位：秒,效果等同于`setex key seconds value`，成功返回“OK”，如果对在有效时间内存在的键值对重新使用该命令，则value会被覆盖，有效时间也会被覆盖，并重新开始计时。
+2. `set key value [px milliseconds] `：设置带有过期时间的键值对  单位：毫秒,效果等同于`psetex key milliseconds value`，成功返回“OK”。如果对在有效时间内存在的键值对重新使用该命令，则value会被覆盖，有效时间也会被覆盖，并重新开始计时。
+3. `set key value nx`： 设置key-value的键值对，如果之前该键key不存在，则设置执行操作，返回值“OK”,如果之前键值对存在，则不会执行操作，返回“（nil）”，效果等同于`setnx key value`，但是后者成功返回值1，失败返回值0。
+4. `set key value xx`： 设置key-value的键值对,只有之前该键值key对已经存在的时候才会执行操作（value会被覆盖），返回“OK”，若之前不存在则不会执行，返回“nil”。
 
-`set key value xx`： 设置key-value的键值对,只有之前该键值key对已经存在的时候才会执行操作（value会被覆盖），返回“OK”，若之前不存在则不会执行，返回“nil”。
-
-
-
-#### 同时设置/获取多个键值
+##### 同时设置/获取多个键值
 
 
 
@@ -153,7 +287,7 @@ mget k1 k2 ...
 mget k1 k2 k3 k4 k5 ....
 ```
 
-#### 获取指定区间范围内的值
+##### 获取指定区间范围内的值
 
 `getrange`：获取指定区间的值
 
@@ -167,17 +301,17 @@ getrange k1 0 4 # 获取k1的 0 5是区间的范围，默认从0开始
 setrange k1 3 xxxx #设置k1从3往后的值为xxx
 ```
 
-#### 数值的增减
+##### 数值的增减
 
 >注意：一定要是数字才能进行加减
 
-##### 递增数字
+###### 递增数字
 
 ```cmd
 incr key
 ```
 
-##### 增加指定的整数
+###### 增加指定的整数
 
 ```cmd
 incrby key x
@@ -185,13 +319,13 @@ key: 代表变量名
 x：代表增加的数字
 ```
 
-##### 递减数值
+###### 递减数值
 
 ```cmd
 decr key
 ```
 
-##### 减少指定的整数
+###### 减少指定的整数
 
 ```cmd
 decrby key x
@@ -199,14 +333,14 @@ key：代表变量名
 x：代表递减的数字
 ```
 
-#### 获取字符串的长度
+##### 获取字符串的长度
 
 ```cmd
 strlen key
 key：表示变量名
 ```
 
-#### 字符串长度和内容追加
+##### 字符串长度和内容追加
 
 ```cmd
 append key value
@@ -214,7 +348,7 @@ key：表示变量名
 value：表示要增加的字符
 ```
 
-#### 分布式锁
+##### 分布式锁
 
 ```cmd
 setnx key value # 如果不存在把变量和值加上
@@ -239,11 +373,11 @@ value：表示变量名的值
 
 `setnx`：只有在key不存在设置key值
 
-####    getset(先get在set)先获取值，在设置值
+######    getset(先get在set)先获取值，在设置值
 
 getset：将给定key的值设为value，并返回key的旧值（old value）。简单一句话，先get然后立即set
 
-## 列表（List）
+### 列表（List）
 
 > 特点：单key多value
 
@@ -261,7 +395,9 @@ getset：将给定key的值设为value，并返回key的旧值（old value）。
 
 ![](/redisImages/list.png)
 
-### 常用操作命令(L是从左到右，R是从右到左)
+![](/redisImages/list命令.png)
+
+#### 常用操作命令(L是从左到右，R是从右到左)
 
 1. `lpop key count`：移除并获取到第count个元素
 2. `lpush key value 【value2】`：将一个或多个值插入到列表头部
@@ -278,15 +414,45 @@ getset：将给定key的值设为value，并返回key的旧值（old value）。
 13. `lindex key index`：按照索引下标获得元素（从上到下），key表示变量名，index表示索引
 14. `linsert key before/after oldValue newValue`：已有值插入的新值，key变量名，before/after 前或后，oldValue：key的已有值，newValue要插入的值
 
+`rpush/lpush/lrange`
 
+![image-20250406172123946](/redisImages/image-20250406172123946.png)
 
-## 哈希表（Hash）
+`rpop/lpop`
+
+![image-20250406172356511](/redisImages/image-20250406172356511.png)
+
+`lrem/lset`
+
+![image-20250406172732940](/redisImages/image-20250406172732940.png)
+
+`ltrim`
+
+![image-20250406173052157](/redisImages/image-20250406173052157.png)
+
+`rpoplpush`
+
+![image-20250406173317366](/redisImages/image-20250406173317366.png)
+
+`llen/lindex`
+
+![image-20250406173508097](/redisImages/image-20250406173508097.png)
+
+`linsert`
+
+![image-20250406173742983](/redisImages/image-20250406173742983.png)
+
+### 哈希表（Hash）
 
 特点：KV模式不变，但V是一个键值对
 
 `Redis hash`是一个`String`类型的`field`（字段）和`value`（值）的映射表，hash特别适合用于存储对象。
 
 `Redis`中每个`hash`可以存储  键值对（40多亿）
+
+#### 命令
+
+![](/redisImages/hash命令.png)
 
 `hset key filed value`：设置值
 
@@ -300,6 +466,10 @@ hset user:001 id 11 name z3 age 25
 hget user:001 name
 ```
 
+![image-20250406175251833](/redisImages/image-20250406175251833.png)
+
+**`hmset/hmget`可以进行批处理**
+
 `hmset key filed value`：设置值
 
 ```cmd
@@ -311,6 +481,8 @@ hmest user:001 id 12 name li4 age 26
 ```cmd
 hmget user:001 id name age
 ```
+
+![image-20250406175459761](/redisImages/image-20250406175459761.png)
 
 `hgetall key`：遍历key的所有属性和值
 
@@ -324,6 +496,8 @@ hgetall user:001
 hdel user:001 age
 ```
 
+![image-20250406175551830](/redisImages/image-20250406175551830.png)
+
 `hlen key`：获取key的长度
 
 ```cmd
@@ -335,6 +509,8 @@ hlen user:001
 ```cmd
 hexists user:001 name
 ```
+
+![image-20250406175725012](/redisImages/image-20250406175725012.png)
 
 `hkeys key`：获取key里面的属性
 
@@ -354,21 +530,23 @@ hvals hash2
 hincrby user:001 age 1
 ```
 
+![image-20250406175903212](/redisImages/image-20250406175903212.png)
+
 `hincrbyfloat key filed value`：对某个浮点数的值加value
 
 ```cmd
 hincrbyfloat user:001 score 0.5
 ```
 
-`hsetnx key fuked value`：不存在新建成功，存在了无效
+`hsetnx key fuked value`：不存在赋值成功/新建成功，存在了无效
 
 ```cmd
 hsetnx user:001 email zzssww@qq.com
 ```
 
+![image-20250406180220994](/redisImages/image-20250406180220994.png)
 
-
-## 集合（Set）
+### 集合（Set）
 
 特点：单值多value，且无重复
 
@@ -426,7 +604,7 @@ spop set1 1 #随机弹出一个元素
 smove set1 set2 7 #将set1中的7移动到set2里面
 ```
 
-### 集合运算
+#### 集合运算
 
 A、B 两个集合，A的元素是abc12，B的元素是123ax
 
@@ -472,7 +650,7 @@ sinetercard 2 set1 set2 limit 1 # 2个key set1 和 set2 只显示 1个
 
 
 
-## 有序集合（ZSet（sorted set））
+### 有序集合（ZSet（sorted set））
 
 `zset`(`sorted set`：有序集合)
 
@@ -621,7 +799,7 @@ zrevrank zset v1 # 获得逆序的下标值
 
 
 
-## 地理空间（GEO）
+### 地理空间（GEO）
 
 `Redis GEO`主要用于存储地理位置信息，并对于存储的信息进行操作，包括：
 
@@ -630,7 +808,7 @@ zrevrank zset v1 # 获得逆序的下标值
 3. 计算两个位置之间的距离
 4. 根据用户给定的经纬度坐标来获取指定范围内的地理位置集合
 
-## 基数统计（HyperLogLog）
+### 基数统计（HyperLogLog）
 
 `HyperLogLog`是用来做**<u>基数统计</u>**的算法，`HyperLogLog`的优点是，在输入元素的数量或者体积非常大时，计算基数所需的空间总是固定且很小的。
 
@@ -638,7 +816,7 @@ zrevrank zset v1 # 获得逆序的下标值
 
 但是，因为`HyperLogLog`只会根据输入元素来计算基数，而不会存储元素本身，所以`HyperLogLog`不能像集合那样，返回输入的各个元素。
 
-## 位图（bitmap）
+### 位图（bitmap）
 
 `Bit arrays （or simply bitmaps，我们可以称之为位图）`
 
@@ -650,13 +828,13 @@ zrevrank zset v1 # 获得逆序的下标值
 
 由0和1状态表现的二进制位的bit数组
 
-## 位域（bitfield）
+### 位域（bitfield）
 
 通过 `bitfield`命令可以一次性操作多个比特位域（指的是连续的多个比特位），它会执行一系列操作并返回一个响应数组，这个数组中的元素对应参数列表中的相应操作的执行结果。
 
 说白了就是通过`bitfield`命令我们可以一次性对比多个比特位域进行操作。
 
-## 流（Stream)
+### 流（Stream)
 
 `Redis Stream`是 `Redis 5.0`版本新增加的数据结构。
 

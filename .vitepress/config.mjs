@@ -81,8 +81,8 @@ export default defineConfig({
           activeMatch:'/doc-text/Java/springboot/什么是SpringBoot'
         },{
           text:'Redis7',
-          link:'/doc-text/redis/redis',
-          activeMatch:'/doc-text/redis/redis'
+          link:'/doc-text/redis/chapter01',
+          activeMatch:'/doc-text/redis/chapter01'
         },{
           text:'狂神说SpringCloudNetfix',
           link:'/doc-text/Java/springcloudNetflix/SpringCloud',
@@ -582,6 +582,19 @@ export default defineConfig({
             text:'POM包',
             link:'/doc-text/Java/springboot/SpringBootPom包'
           }]
+        },{
+          text:'Redis',
+          collapsed:true,
+          items:[
+            {
+              text:'redis简介+10大数据类型',
+              link:'/doc-text/redis/chapter01',
+              activeMatch:'/doc-text/redis/chapter01'
+            },{
+              text:'redis持久化（RDB+AOF）',
+              link:'/doc-text/redis/chapter02',
+              activeMatch:'/doc-text/redis/chapter02'
+            }]
         },{
           text:"SpringCloud Alibaba",
           collapsed:true,

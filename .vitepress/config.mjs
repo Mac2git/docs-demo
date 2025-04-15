@@ -594,6 +594,10 @@ export default defineConfig({
               text:'redis持久化（RDB+AOF）',
               link:'/doc-text/redis/RDB+AOF',
               activeMatch:'/doc-text/redis/RDB+AOF'
+            },{
+              text:'redis 事务+管道',
+              link:'/doc-text/redis/事务+管道',
+              activeMatch:'/doc-text/redis/事务+管道'
             }]
         },{
           text:"SpringCloud Alibaba",

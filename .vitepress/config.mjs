@@ -595,9 +595,17 @@ export default defineConfig({
               link:'/doc-text/redis/RDB+AOF',
               activeMatch:'/doc-text/redis/RDB+AOF'
             },{
-              text:'redis 事务+管道',
-              link:'/doc-text/redis/事务+管道',
-              activeMatch:'/doc-text/redis/事务+管道'
+              text:'redis 事务&管道',
+              link:'/doc-text/redis/transactions&pipeline.md',
+              activeMatch:'/doc-text/redis/transactions&pipeline.md'
+            },{
+              text:'redis 发布&订阅',
+              link:'/doc-text/redis/pub&sub.md',
+              activeMatch:'/doc-text/redis/pub&sub.md'
+            },{
+              text:'redis 复制',
+              link:'/doc-text/redis/replica',
+              activeMatch:'/doc-text/redis/replica'
             }]
         },{
           text:"SpringCloud Alibaba",

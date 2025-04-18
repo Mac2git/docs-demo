@@ -48,14 +48,61 @@
       * ![image-20250416170351266](/redisImages/image-20250416170351266.png)
       * ![image-20250416170415481](/redisImages/image-20250416170415481.png)
       * ![image-20250416170638143](/redisImages/image-20250416170638143.png)
+  * 效果，启动redis6379、redis6380、redis6381，并查看（如果连接不上试试ping命令 ，看看是否可以和主机ping通，如果ping不通关闭防火墙`systemctl stop firewalld`）
+    * 如果端口号不是 6379 启动的时候加上端口号，如果不加默认6379
+      * ![image-20250418211505189](/redisImages/image-20250418211505189.png)
+    * 启动两个从机
+      * ![image-20250418211822625](/redisImages/image-20250418211822625.png)
+      * ![image-20250418224045300](/redisImages/image-20250418224045300.png)
+      * 主机日志查看 连接
+        * ![image-20250418224709693](/redisImages/image-20250418224709693.png)
+      * 从机日志查看连接
+        * ![image-20250418224817758](/redisImages/image-20250418224817758.png)
+      * 主机
+        * ![image-20250418224136632](/redisImages/image-20250418224136632.png)
+      * ![image-20250418224349195](/redisImages/image-20250418224349195.png)
+      * 使用从机访问试试
+        * ![image-20250418224431124](/redisImages/image-20250418224431124.png)
 
+问题：
 
+1. 从机可以执行写命令吗？
 
+   ![image-20250418225224247](/redisImages/image-20250418225224247.png)
 
+2. 从机切入点问题
 
+   slave是从头开始复制还是从切入点开始复制?
 
+    master启动，写到k3
 
+    slave1跟着master同时启动，跟着写到k3
 
+    slave2写到k3后才启动，那之前的是否也可以复制？
+
+     Y，首次一锅端，后续跟随，master写，slave跟
+
+3. 主机shutdown后，从机会不会上位
+
+   从机不动，原地待命，从机数据可以正常使用；等待主机重启动归来
+
+4. 主机shutdown后，重启后主从关系还在吗？从机还能否顺利复制？
+
+   ![image-20250418225407582](/redisImages/image-20250418225407582.png)
+
+5. 某台从机down后，master继续，从机重启后它能跟上主机吗？
+
+   可以
+
+### 命令操作主从关系
+
+![image-20250418225601215](/redisImages/image-20250418225601215.png)
+
+### 总结
+
+配置，持久稳定
+
+命令，当次生效
 
 
 

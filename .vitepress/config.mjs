@@ -606,6 +606,10 @@ export default defineConfig({
               text:'redis 复制',
               link:'/doc-text/redis/replica',
               activeMatch:'/doc-text/redis/replica'
+            },{
+              text:'redis 哨兵&集群',
+              link:'/doc-text/redis/sentinel&cluster',
+              activeMatch:'/doc-text/redis/sentinel&cluster'
             }]
         },{
           text:"SpringCloud Alibaba",

@@ -776,7 +776,7 @@ redis 集群是一个提供在多个redis节点间共享数据的程序集
 
 **缺点：**
 
- 	原来规划好的节点，进行扩容或者缩容就比较麻烦了额，不管扩缩，每次数据变动导致节点有变动，映射关系需要重新进行计算，在服务器个数固定不变时没有问题，如果需要弹性扩容或故障停机的情况下，原来的取模公式就会发生变化：Hash(key)/3会变成Hash(key) /?。此时地址经过取余运算的结果将发生很大变化，根据公式获取的服务器也会变得不可控。
+原来规划好的节点，进行扩容或者缩容就比较麻烦了额，不管扩缩，每次数据变动导致节点有变动，映射关系需要重新进行计算，在服务器个数固定不变时没有问题，如果需要弹性扩容或故障停机的情况下，原来的取模公式就会发生变化：Hash(key)/3会变成Hash(key) /?。此时地址经过取余运算的结果将发生很大变化，根据公式获取的服务器也会变得不可控。
 
 某个redis机器宕机了，由于台数数量变化，会导致hash取余全部数据重新洗牌。
 
@@ -1248,3 +1248,575 @@ redis-cli -a 密码 --cluster del-node ip:端口 6387节点ID
    3. `cluster keyslot`键名称
 
       该键应该存在哪个槽位上
+
+## SpringBoot集成Redis
+
+
+
+### Jedis
+
+**Jedis 是一款老牌 Redis 的 Java 客户端。**
+
+Jedis Client 是 Redis 官网推荐的一个面向java 客户端，库文件实现了对各类API 进行封装调用
+
+
+
+优点：
+
+1. Jedis 的 API 提供了比较全面的 Redis 命令的支持
+2. Jedis 中的 Java 方法基本和 Redis 的 API 保持着一致，也就是说了解 Redis 的API，可以熟练的使用 Jedis
+3. 支持 pipelining、事务、LUA Scripting、Redis Sentinel、Redis Cluster等等 redis 提供的高级特性
+4. 客户端轻量，简洁，便于集成和改造
+5. 使用广泛，开发人员易上手
+
+缺点：
+
+1. 使用阻塞的 I/O 操作，且其方法调用都是同步的，程序流需要等到 sockets 处理完 I/O 才能执行，不支持异步
+
+2. Jedis 在实现上是直接连接的 redis server，如果在多线程环境下是非线程安全的，这个时候可以使用连接池来管理 Jedis，解决 Jedis 客户端实例存在非线程安全的问题（也就是可以通过配置JedisPool来实现基于Jedis的连接池）
+
+3. 不支持读写分离，需要自己实现
+
+4. 技术文档差，可以说几乎没有
+
+通过配置 JedisPool 设置连接池并将JedisPool对象注入到spring容器内，使用时通过 @Autowired 方式注入JedisPool 使用。
+
+示例：
+
+​	pom文件
+
+```xml
+<!--jedis-->
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>4.3.1</version>
+</dependency>
+<!-- lombok 因为要用到 @Slf4j-->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+</dependency>
+```
+
+```java
+package com.lazy.redis;
+
+import lombok.extern.slf4j.Slf4j;
+import redis.clients.jedis.Jedis;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+@Slf4j
+public class JedisDemo {
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis("192.168.0.128", 6379);
+        jedis.auth("redis");
+        log.info("redis 连接成功");
+        log.info("ping,{}", jedis.ping());
+        //string
+        log.info("-------string---------");
+        jedis.set("k1", "v1");
+        System.out.println(jedis.get("k1"));
+        //list
+        log.info("-------list---------");
+        jedis.lpush("list", "3", "2", "3", "4", "5");
+        List<String> list = jedis.lrange("list", 0, -1);
+        list.forEach(System.out::println);
+        //set
+        log.info("----------set----------");
+        jedis.sadd("orders", "1");
+        jedis.sadd("orders", "2");
+        jedis.sadd("orders", "3");
+        Set<String> orders = jedis.smembers("orders");
+        orders.forEach(System.out::println);
+        jedis.srem("orders", "1");
+        //打印orders
+        log.info("orders,size：{}", jedis.smembers("orders").size());
+        //hash
+        log.info("----------hash----------");
+        jedis.hset("hash1", "userName", "zs");
+        log.info("hash：{}", jedis.hget("hash1", "userName"));
+        HashMap<String, String> hash2 = new HashMap<>();
+        hash2.put("userName", "zs");
+        hash2.put("age", "20");
+        hash2.put("email", "@qq.com");
+        jedis.hmset("hash2", hash2);
+        //打印 hash2的值
+        log.info("-----hash2-----");
+        List<String> hmget = jedis.hmget("hash2", "userName", "age", "email");
+        hmget.forEach(System.out::println);
+        log.info("-----zset-----");
+        //zset
+        jedis.zadd("zset01", 50d, "70");
+        jedis.zadd("zset01", 60d, "90");
+        jedis.zadd("zset01", 70d, "70");
+        List<String> zset01 = jedis.zrange("zset01", 0, -1);
+        zset01.forEach(System.out::println);
+        jedis.flushDB();
+        //关闭连接
+        jedis.close();
+    }
+}
+```
+
+### Lettuce
+
+Lettuce是一个Redis的Java驱动包，Lettuce翻译为生菜，没错，就是吃的那种生菜，所以它的Logo长这样
+
+![image-20250422171001852](/redisImages/\image-20250422171001852.png)
+
+**Lettuce 是一种可扩展的、线程安全的 Redis 高级客户端，从 Spring Boot 2.x 开始， Lettuce 已取代 Jedis 成为SpringBoot 默认的 Redis 客户端**
+优点：
+
+1. 相比于 Jedis，Lettuce 属于后起之秀，对 Redis 支持更加全面，并且解决了 Jedis 客户端实例存在非线程安全的问题
+2. 支持同步编程，异步编程，响应式编程，自动重新连接，主从模式，集群模块，哨兵模式，管道和编码器等等高级的 Redis 特性
+3. Lettuce 底层基于 Netty 框架的事件驱动与 redis 通信，采用了非阻塞的 I/O 操作，可异步调用，相比 Jedis，性能高
+4. Letuce 的 API 是线程安全的，如果不是执行阻塞和事务操作，如 BLPOP 和MULTI/EXEC 等命令，多个线程就可以共享一个连接，性能方面差异很小
+
+缺点：
+
+1. API 更加抽象，学习使用成本高
+
+RedisTemplate是Spring Data Redis框架提供的对Jedis和Lettuce的封装客户端，本质上还是使用Jedis或Lettuce，spring boot1.x的版本默认采用Jedis实现，spring boot2.x的版本默认采用Lettuce实现；可以方便的在Jedis和Lettuce之间切换具体的客户端实现；和日志门面与日志实现框架的关系一样，日志门面统一了操作日志的api，而具体日志的记录交给日志实现框去做，这样在切换日志实现时不用修改日志相关代码；RedisTemplate性能上不及Jedis，使用RedisTemplate时项目中至少需要有Jedis或Lettuce客户端之一的依赖包，否则会报错，RedisTemplate会自动根据项目中依赖的客户端选择底层使用Jedis还是Lettuce。
+
+**Jedis和Lettuce的区别**
+
+jedis和Lettuce都是Redis的客户端，它们都可以连接Redis服务器，但是在SpringBoot2.0之后默认都是使用的 Lettuce 这个客户端连接Redis服务器，因为当时使用Jedis客户端连接Redis 服务器的时候，每个线程都要拿自己创建的Jedis实例去连接Redis客户端，当有很多个线程的时候，不仅开销大需要反复的创建关闭一个Jedis连接，而且也是线程不安全的，一个线程通过Jedis实例更改Redis服务器中的数据之后会影响另一个线程。
+
+但是如果使用 Lettuce 这个客户端连接 Redis 服务器的时候，就不会出现上面的情况，Lettuce 底层使用的是 Netty，当有多个线程都需要连接 Redis 服务器的时候，可以保证只创建一个 Lettuce 连接，使所有的线程共享这一个 Lettuce 连接，这样可以减少创建关闭一个 Lettuce 连接时候的开销；而且这种方式也是线程安全的，不会出现一个线程通过 Lettuce 更改 Redis 服务器中的数据之后而影响另一个线程的情况；
+
+使用：
+
+pom
+
+```xml
+<dependency>
+    <groupId>io.lettuce</groupId>
+    <artifactId>lettuce-core</artifactId>
+    <version>6.2.1.RELEASE</version>
+</dependency>
+```
+
+```java
+package com.lazy.redis;
+
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisURI;
+import io.lettuce.core.SortArgs;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+@Slf4j
+public class LettuceDemo {
+    public static void main(String[] args) {
+        //使用构建器链式编程 构建 RedisURI.builder
+        RedisURI uri = RedisURI.Builder
+                .redis("192.168.0.128")
+                .withPort(6379)
+                .withAuthentication("default", "redis")
+                .build();
+        //创建连接 redis 客户端
+        RedisClient redisClient = RedisClient.create(uri);
+        //创建连接
+        StatefulRedisConnection<String, String> connect = redisClient.connect();
+        //创建redis同步操作命令
+        RedisCommands<String, String> commands = connect.sync();
+        //string
+        log.info("=======string======");
+        commands.set("k1","v1");
+        log.info("string：{}",commands.get("k1"));
+        //list
+        log.info("========list=========");
+        commands.lpush("list","1","2","3","4","5");
+        List<String> list = commands.lrange("list", 0, -1);
+        list.forEach(System.out::println);
+        log.info("=======set=======");
+        commands.sadd("set","set1","set2","set3");
+        Set<String> set = commands.smembers("set");
+        set.forEach(System.out::println);
+        log.info("=======hash=======");
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("k1", "v1");
+        hashMap.put("k2", "v2");
+        hashMap.put("k3", "v3");
+        commands.hset("hash",hashMap);
+        Map<String, String> hash = commands.hgetall("hash");
+        hash.keySet().forEach(System.out::println);
+        log.info("=======zset=======");
+        commands.zadd("zset",20d,"20");
+        commands.zadd("zset",30d,"30");
+        commands.zadd("zset",60d,"60");
+        List<String> zset = commands.zrange("zset", 0, -1);
+        zset.forEach(System.out::println);
+        //关闭资源
+        redisClient.shutdown();
+        redisClient.close();
+    }
+}
+```
+
+### RedisTemplate
+
+pom
+
+```xml
+<!-- redis -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-pool2</artifactId>
+</dependency>
+<!-- swagger3 OpenAPI -->
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.2.0</version>
+</dependency>
+```
+
+yaml
+
+```yaml
+server:
+  port: 8080
+spring:
+  application:
+    name: Redis7_study
+  swagger2:
+    enable: true # 是否开启swagger
+  data:
+    redis:
+      host: 192.168.0.128 # redis IP 地址
+      database: 0 # redis 0号数据库
+      port: 6379 # redis 端口
+      password: redis # redis 密码
+      lettuce:
+        pool: # lettuce 连接池
+          max-active: 8 # 连接池最大连接数
+          max-wait: -1ms # 连接池最大阻塞等待
+          max-idle: 8 # 连接池最大空闲连接
+          min-idle: 0 # 连接池最小空闲连接
+```
+
+service
+
+```java
+@Service
+@Slf4j
+public class OrderService {
+
+    private final String ORDER_KEY = "order:";
+    
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    public void addOrder(){
+        int keyId = ThreadLocalRandom.current().nextInt(100) + 1;
+        String order_id = UUID.randomUUID().toString().replace("-", "");
+        String key = ORDER_KEY + keyId;
+        redisTemplate.opsForValue().set(key, "京东订单："+order_id);
+        log.info("*****京东订单已生成：编号{},订单号{}",key,order_id);
+    }
+
+    public String getOrder(){
+        return (String) redisTemplate.opsForValue().get(ORDER_KEY);
+    }
+}
+```
+
+controller
+
+```java
+@RestController
+@Slf4j
+@Tag(name = "订单接口")
+public class OrderController {
+
+    @Resource
+    private OrderService orderService;
+
+    @PostMapping("/order/add")
+    @Operation(summary = "新增订单")
+    public void addOrder() {
+        orderService.addOrder();
+    }
+
+    @GetMapping("/order/getOder/{orderId}")
+    @Operation(summary = "根据order获取订单")
+    public void getOrder(@PathVariable("orderId") String orderId) {
+        orderService.getOrder();
+    }
+}
+```
+
+启动运行
+
+`http://localhost:8080/swagger-ui/index.html`
+
+测试 `addOrder`
+
+![image-20250423172232663](/redisImages/\image-20250423172232663.png)
+
+发现乱码，明明启动的时候已经添加了，解析中文的命令了，怎么还会乱码？
+
+![image-20250423172632147](/redisImages/\image-20250423172632147.png)
+
+阅读RedisTemplate源码后发现，默认情况下，RedisTemplate 使用该数据列化方式，我们来看下源码 RedisTemplate#afterPropertiesSet()
+
+解决方法
+
+1. 不用`RedisTemplate`改用`StringRedisTemplate`
+
+   orderService
+
+   ```java
+   @Service
+   @Slf4j
+   public class OrderService {
+   
+       private final String ORDER_KEY = "order:";
+   
+       @Resource
+       private StringRedisTemplate stringRedisTemplate;
+   
+       public void addOrder(){
+           int keyId = ThreadLocalRandom.current().nextInt(100) + 1;
+           String order_id = UUID.randomUUID().toString().replace("-", "");
+           String key = ORDER_KEY + keyId;
+           stringRedisTemplate.opsForSet().add(key, order_id);
+           log.info("*****京东订单已生成：编号{},订单号{}",key,order_id);
+       }
+   
+       public String getOrder(){
+           return stringRedisTemplate.opsForValue().get(ORDER_KEY);
+       }
+   }
+   ```
+
+   在测试一下
+
+   ![image-20250423173345696](/redisImages/\image-20250423173345696.png)
+
+   发现没有问题
+
+2. 继续使用`RedisTemplate`，添加`RedisConfig`
+
+   在RedisConfig里面 去指定序列化方式
+
+   ```java
+   package com.lazy.config;
+   
+   import org.springframework.context.annotation.Bean;
+   import org.springframework.context.annotation.Configuration;
+   import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+   import org.springframework.data.redis.core.RedisTemplate;
+   import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+   import org.springframework.data.redis.serializer.StringRedisSerializer;
+   
+   @Configuration
+   public class RedisConfig
+   {
+       /**
+        * redis序列化的工具配置类，下面这个请一定开启配置
+        * 127.0.0.1:6379> keys *
+        * 1) "ord:102"  序列化过
+        * 2) "\xac\xed\x00\x05t\x00\aord:102"   野生，没有序列化过
+        * this.redisTemplate.opsForValue(); //提供了操作string类型的所有方法
+        * this.redisTemplate.opsForList(); // 提供了操作list类型的所有方法
+        * this.redisTemplate.opsForSet(); //提供了操作set的所有方法
+        * this.redisTemplate.opsForHash(); //提供了操作hash表的所有方法
+        * this.redisTemplate.opsForZSet(); //提供了操作zset的所有方法
+        * @param lettuceConnectionFactory
+        * @return
+        */
+       @Bean
+       public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory)
+       {
+           RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+   
+           redisTemplate.setConnectionFactory(lettuceConnectionFactory);
+           //设置key序列化方式string
+           redisTemplate.setKeySerializer(new StringRedisSerializer());
+           //设置value的序列化方式json，使用GenericJackson2JsonRedisSerializer替换默认序列化
+           redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+   
+           redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+           redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+   
+           redisTemplate.afterPropertiesSet();
+   
+           return redisTemplate;
+       }
+   }
+   ```
+
+   测试
+
+   ![image-20250423173757259](/redisImages/\image-20250423173757259.png)
+
+   也没有问题
+
+
+`getOder`
+
+![image-20250423172552580](/redisImages/\image-20250423172552580.png)
+
+
+
+### 连接redis注意：
+
+>1. bind 配置请注释掉
+>2. 保护模式设置为no
+>3. linux 系统的防火墙设置
+>4. redis服务器的IP和密码是否正确
+>5. 忘记写访问redis的服务端口号和密码
+>6. slave-read-only 设置成no 要不然服务器没有读写权限
+
+### Spring集成RedisTemplate集群
+
+1. 启动redis集6台实例
+
+   ![image-20250423180832763](/redisImages/\image-20250423180832763.png)
+
+   ![image-20250423181037369](/redisImages/\image-20250423181037369.png)
+
+   ![image-20250423181054269](/redisImages/\image-20250423181054269.png)
+
+   ![image-20250423181534546](/redisImages/\image-20250423181534546.png)
+
+   添加集群yaml
+
+   ```yaml
+   server:
+     port: 8080
+   spring:
+     application:
+       name: Redis7_study
+     swagger2:
+       enable: true # 是否开启swagger
+     data:
+       redis:
+         host: 192.168.0.128 # redis IP 地址
+         database: 0 # redis 0号数据库
+         port: 6379 # redis 端口
+         password: redis # redis 密码
+         lettuce:
+           pool: # lettuce 连接池
+             max-active: 8 # 连接池最大连接数
+             max-wait: -1ms # 连接池最大阻塞等待
+             max-idle: 8 # 连接池最大空闲连接
+             min-idle: 0 # 连接池最小空闲连接
+         cluster: # 添加集群
+           nodes: 192.168.0.128:6381,192.168.0.128:6382,192.168.0.128:6383,192.168.0.128:6384,192.168.0.128:6385,192.168.0.128:6386
+   ```
+
+   启动测试
+
+   ![image-20250423181827763](/redisImages/\image-20250423181827763.png)
+
+   添加成功
+
+2. 问题 **SpringBoot2出现的问题**
+
+   1. 人为模拟，master-6381机器意外宕机，手动shutdown
+
+      ![image-20250423182130443](/redisImages/\image-20250423182130443.png)
+
+   2. 在对redis集群命令方式，手动验证各种读写命令，看看6384是否上位
+
+      1. 6384已经上位了
+
+      ![image-20250423182241046](/redisImages/\image-20250423182241046.png)
+
+   3. Redis Cluster 集群能自动感知并自动完成主备切换，对应的slave6384会被选举出新的master节点
+
+   4. 微服务客户端再次读写访问试试
+
+      1. Redis Cluster集群部署采用了3主3从拓扑结构，数据读写访问master节点， slave节点负责备份。当master宕机主从切换成功，redis手动OK，but 2个经典故障
+
+      2. ![image-20250423182602782](/redisImages/\image-20250423182602782.png)
+
+      3. SpringBoot 2.X 版本，Redis 默认的连接池采用 Lettuce 当 Redis集群节点发生变化后，Lettuce  默认是不会刷新节点拓扑
+
+      4. 解决方案
+
+         1. 排除 Lettuce 采用 Jedis（不推荐）
+
+            ![image-20250423182748514](/redisImages/\image-20250423182748514.png)
+
+         2. 重写连接工厂实例（极度不推荐）
+
+            ```java
+            @Bean
+            public DefaultClientResources lettuceClientResources() {
+                return DefaultClientResources.create();
+            }
+            @Bean
+            public LettuceConnectionFactory lettuceConnectionFactory(RedisProperties redisProperties, ClientResources clientResources) {
+                ClusterTopologyRefreshOptions topologyRefreshOptions = ClusterTopologyRefreshOptions.builder()
+                        .enablePeriodicRefresh(Duration.ofSeconds(30)) //按照周期刷新拓扑
+                        .enableAllAdaptiveRefreshTriggers() //根据事件刷新拓扑
+                        .build();
+                ClusterClientOptions clusterClientOptions = ClusterClientOptions.builder()
+                        //redis命令超时时间,超时后才会使用新的拓扑信息重新建立连
+                        .timeoutOptions(TimeoutOptions.enabled(Duration.ofSeconds(10)))
+                        .topologyRefreshOptions(topologyRefreshOptions)
+                        .build();
+                LettuceClientConfiguration clientConfiguration = LettuceClientConfiguration.builder()
+                        .clientResources(clientResources)
+                        .clientOptions(clusterClientOptions)
+                        .build();
+                RedisClusterConfiguration clusterConfig = new RedisClusterConfiguration(redisProperties.getCluster().getNodes());
+                clusterConfig.setMaxRedirects(redisProperties.getCluster().getMaxRedirects());
+                clusterConfig.setPassword(RedisPassword.of(redisProperties.getPassword()));
+                LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(clusterConfig, clientConfiguration);
+                return lettuceConnectionFactory;
+            }
+            ```
+
+         3. 刷新节点集群拓扑动态感应
+
+            ![image-20250423182940311](/redisImages/\image-20250423182940311.png)
+
+         4. 改写yaml
+
+            ```yaml
+            server:
+              port: 8080
+            spring:
+              application:
+                name: Redis7_study
+              swagger2:
+                enable: true # 是否开启swagger
+              data:
+                redis:
+                  host: 192.168.0.128 # redis IP 地址
+                  database: 0 # redis 0号数据库
+                  port: 6379 # redis 端口
+                  password: redis # redis 密码
+                  lettuce:
+                    pool: # lettuce 连接池
+                      max-active: 8 # 连接池最大连接数
+                      max-wait: -1ms # 连接池最大阻塞等待
+                      max-idle: 8 # 连接池最大空闲连接
+                      min-idle: 0 # 连接池最小空闲连接
+                  cluster: # 添加集群
+                    nodes: 192.168.0.128:6381,192.168.0.128:6382,192.168.0.128:6383,192.168.0.128:6384,192.168.0.128:6385,192.168.0.128:6386
+                    refresh:
+                     period: 2000 # 定时刷新
+                    refresh:
+                     adaptive: true #支持集群拓扑动态感应刷新,自适应拓扑刷新是否使用所有可用的更新，默认false关闭
+            ```
+

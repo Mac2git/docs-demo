@@ -216,6 +216,14 @@ redis-cli shutdown
 
 
 
+## 添加中文支持
+
+```cmd
+redis-cli -a 密码 -p 端口号 --raw  # --raw 添加中文支持
+```
+
+
+
 ## Redis十大数据类型：
 
 ### 字符串（String）

@@ -1366,7 +1366,7 @@ public class JedisDemo {
 
 Lettuce是一个Redis的Java驱动包，Lettuce翻译为生菜，没错，就是吃的那种生菜，所以它的Logo长这样
 
-![image-20250422171001852](/redisImages/\image-20250422171001852.png)
+![image-20250422171001852](/redisImages/image-20250422171001852.png)
 
 **Lettuce 是一种可扩展的、线程安全的 Redis 高级客户端，从 Spring Boot 2.x 开始， Lettuce 已取代 Jedis 成为SpringBoot 默认的 Redis 客户端**
 优点：
@@ -1567,11 +1567,11 @@ public class OrderController {
 
 测试 `addOrder`
 
-![image-20250423172232663](/redisImages/\image-20250423172232663.png)
+![image-20250423172232663](/redisImages/image-20250423172232663.png)
 
 发现乱码，明明启动的时候已经添加了，解析中文的命令了，怎么还会乱码？
 
-![image-20250423172632147](/redisImages/\image-20250423172632147.png)
+![image-20250423172632147](/redisImages/image-20250423172632147.png)
 
 阅读RedisTemplate源码后发现，默认情况下，RedisTemplate 使用该数据列化方式，我们来看下源码 RedisTemplate#afterPropertiesSet()
 
@@ -1607,7 +1607,7 @@ public class OrderController {
 
    在测试一下
 
-   ![image-20250423173345696](/redisImages/\image-20250423173345696.png)
+   ![image-20250423173345696](/redisImages/image-20250423173345696.png)
 
    发现没有问题
 
@@ -1664,14 +1664,14 @@ public class OrderController {
 
    测试
 
-   ![image-20250423173757259](/redisImages/\image-20250423173757259.png)
+   ![image-20250423173757259](/redisImages/image-20250423173757259.png)
 
    也没有问题
 
 
 `getOder`
 
-![image-20250423172552580](/redisImages/\image-20250423172552580.png)
+![image-20250423172552580](/redisImages/image-20250423172552580.png)
 
 
 
@@ -1688,13 +1688,13 @@ public class OrderController {
 
 1. 启动redis集6台实例
 
-   ![image-20250423180832763](/redisImages/\image-20250423180832763.png)
+   ![image-20250423180832763](/redisImages/image-20250423180832763.png)
 
-   ![image-20250423181037369](/redisImages/\image-20250423181037369.png)
+   ![image-20250423181037369](/redisImages/image-20250423181037369.png)
 
-   ![image-20250423181054269](/redisImages/\image-20250423181054269.png)
+   ![image-20250423181054269](/redisImages/image-20250423181054269.png)
 
-   ![image-20250423181534546](/redisImages/\image-20250423181534546.png)
+   ![image-20250423181534546](/redisImages/image-20250423181534546.png)
 
    添加集群yaml
 
@@ -1724,7 +1724,7 @@ public class OrderController {
 
    启动测试
 
-   ![image-20250423181827763](/redisImages/\image-20250423181827763.png)
+   ![image-20250423181827763](/redisImages/image-20250423181827763.png)
 
    添加成功
 
@@ -1732,13 +1732,13 @@ public class OrderController {
 
    1. 人为模拟，master-6381机器意外宕机，手动shutdown
 
-      ![image-20250423182130443](/redisImages/\image-20250423182130443.png)
+      ![image-20250423182130443](/redisImages/image-20250423182130443.png)
 
    2. 在对redis集群命令方式，手动验证各种读写命令，看看6384是否上位
 
       1. 6384已经上位了
 
-      ![image-20250423182241046](/redisImages/\image-20250423182241046.png)
+      ![image-20250423182241046](/redisImages/image-20250423182241046.png)
 
    3. Redis Cluster 集群能自动感知并自动完成主备切换，对应的slave6384会被选举出新的master节点
 
@@ -1746,7 +1746,7 @@ public class OrderController {
 
       1. Redis Cluster集群部署采用了3主3从拓扑结构，数据读写访问master节点， slave节点负责备份。当master宕机主从切换成功，redis手动OK，but 2个经典故障
 
-      2. ![image-20250423182602782](/redisImages/\image-20250423182602782.png)
+      2. ![image-20250423182602782](/redisImages/image-20250423182602782.png)
 
       3. SpringBoot 2.X 版本，Redis 默认的连接池采用 Lettuce 当 Redis集群节点发生变化后，Lettuce  默认是不会刷新节点拓扑
 
@@ -1754,7 +1754,7 @@ public class OrderController {
 
          1. 排除 Lettuce 采用 Jedis（不推荐）
 
-            ![image-20250423182748514](/redisImages/\image-20250423182748514.png)
+            ![image-20250423182748514](/redisImages/image-20250423182748514.png)
 
          2. 重写连接工厂实例（极度不推荐）
 
@@ -1788,7 +1788,7 @@ public class OrderController {
 
          3. 刷新节点集群拓扑动态感应
 
-            ![image-20250423182940311](/redisImages/\image-20250423182940311.png)
+            ![image-20250423182940311](/redisImages/image-20250423182940311.png)
 
          4. 改写yaml
 

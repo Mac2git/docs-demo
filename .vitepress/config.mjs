@@ -610,6 +610,10 @@ export default defineConfig({
               text:'redis 哨兵&集群',
               link:'/doc-text/redis/sentinel&cluster',
               activeMatch:'/doc-text/redis/sentinel&cluster'
+            },{
+              text:'bigkey和缓存双写',
+              link:'/doc-text/redis/bigkey和缓存双写',
+              activeMatch:'/doc-text/redis/bigkey和缓存双写'
             }]
         },{
           text:"SpringCloud Alibaba",

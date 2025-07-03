@@ -614,6 +614,10 @@ export default defineConfig({
               text:'bigkey和缓存双写',
               link:'/doc-text/redis/bigkey和缓存双写',
               activeMatch:'/doc-text/redis/bigkey和缓存双写'
+            },{
+              text:'HyperloglogGeoBitmap和布隆过滤器',
+              link:'/doc-text/redis/hyperloglogGeoBitmap',
+              activeMatch:'/doc-text/redis/hyperloglogGeoBitmap'
             }]
         },{
           text:"SpringCloud Alibaba",

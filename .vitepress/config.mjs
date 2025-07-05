@@ -618,6 +618,10 @@ export default defineConfig({
               text:'HyperloglogGeoBitmap和布隆过滤器',
               link:'/doc-text/redis/hyperloglogGeoBitmap',
               activeMatch:'/doc-text/redis/hyperloglogGeoBitmap'
+            },{
+              text:'缓存预热+缓存雪崩+缓存击穿+缓存穿透',
+              link:'/doc-text/redis/缓存预热+缓存雪崩+缓存击穿+缓存穿透',
+              activeMatch:'/doc-text/redis/缓存预热+缓存雪崩+缓存击穿+缓存穿透'
             }]
         },{
           text:"SpringCloud Alibaba",

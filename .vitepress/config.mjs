@@ -583,9 +583,37 @@ export default defineConfig({
             link:'/doc-text/Java/springboot/SpringBootPom包'
           }]
         },{
-          text:"Redis",
+          text:"SpringCloud Alibaba",
           collapsed:true,
           items:[
+            {
+              text:'SpringCloudAlibaba介绍',
+              link:'/doc-text/Java/springcloudAlibaba/chapter01',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter01'
+            },{
+              text:'OpenFign',
+              link:'/doc-text/Java/springcloudAlibaba/chapter02',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter02'
+            },{
+              text:'Sentinel',
+              link:'/doc-text/Java/springcloudAlibaba/chapter03',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter03'
+            },{
+              text:'GateWay',
+              link:'/doc-text/Java/springcloudAlibaba/chapter04',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter04'
+            },{
+              text:'Seata',
+              link:'/doc-text/Java/springcloudAlibaba/chapter05',
+              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter05'
+            }
+          ]
+        }]
+      },
+      {
+        text:'redis',
+        collapsed:true,
+        items:[
             {
               text:'redis简介+10大数据类型',
               link:'/doc-text/redis/redis',
@@ -622,36 +650,12 @@ export default defineConfig({
               text:'缓存预热+缓存雪崩+缓存击穿+缓存穿透',
               link:'/doc-text/redis/缓存预热+缓存雪崩+缓存击穿+缓存穿透',
               activeMatch:'/doc-text/redis/缓存预热+缓存雪崩+缓存击穿+缓存穿透'
+            },{
+              text:'redis分布式锁',
+              link:'/doc-text/redis/redis分布式锁',
+              activeMatch:'/doc-text/redis/redis分布式锁'
             }]
-        },{
-          text:"SpringCloud Alibaba",
-          collapsed:true,
-          items:[
-            {
-              text:'SpringCloudAlibaba介绍',
-              link:'/doc-text/Java/springcloudAlibaba/chapter01',
-              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter01'
-            },{
-              text:'OpenFign',
-              link:'/doc-text/Java/springcloudAlibaba/chapter02',
-              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter02'
-            },{
-              text:'Sentinel',
-              link:'/doc-text/Java/springcloudAlibaba/chapter03',
-              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter03'
-            },{
-              text:'GateWay',
-              link:'/doc-text/Java/springcloudAlibaba/chapter04',
-              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter04'
-            },{
-              text:'Seata',
-              link:'/doc-text/Java/springcloudAlibaba/chapter05',
-              activeMatch:'/doc-text/Java/springcloudAlibaba/chapter05'
-            }
-          ]
-        }]
-      },
-      {
+      },{
         text:'Linux', 
         items:[{
           text:'Linux介绍',

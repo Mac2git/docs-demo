@@ -574,7 +574,7 @@ public class UserService {
 
          linux    		  `my.conf`
 
-         ```mysql
+         ```sql
          log-bin=mysql-bin #开启 binlog
          binlog-format=ROW #选择 ROW 模式
          server_id=1    #配置MySQL replaction需要定义，不要和canal的 slaveId重复
@@ -602,7 +602,7 @@ public class UserService {
 
          2. 默认没有canal账户，在此处新建+授权
 
-            ```mysql
+            sql
             DROP USER IF EXISTS 'canal'@'%';
             CREATE USER 'canal'@'%' IDENTIFIED BY 'canal';  
             GRANT ALL PRIVILEGES ON *.* TO 'canal'@'%' IDENTIFIED BY 'canal';  
@@ -612,7 +612,7 @@ public class UserService {
 
             如果提示`1290 - The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement`
 
-            ```mysql
+            sql
             FLUSH PRIVILEGES;
             DROP USER IF EXISTS 'canal'@'%';
             CREATE USER 'canal'@'%' IDENTIFIED BY 'canal';  

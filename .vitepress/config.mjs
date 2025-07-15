@@ -654,6 +654,10 @@ export default defineConfig({
               text:'redis分布式锁',
               link:'/doc-text/redis/redis分布式锁',
               activeMatch:'/doc-text/redis/redis分布式锁'
+            },{
+              text:'RedLock算法和底层源码分析和缓存淘汰策略',
+              link:'/doc-text/redis/Redlock算法和底层源码分析和缓存淘汰策略',
+              activeMatch:'/doc-text/redis/Redlock算法和底层源码分析和缓存淘汰策略'
             }]
       },{
         text:'Linux', 

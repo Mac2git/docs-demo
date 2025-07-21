@@ -658,6 +658,10 @@ export default defineConfig({
               text:'RedLock算法和底层源码分析和缓存淘汰策略',
               link:'/doc-text/redis/Redlock算法和底层源码分析和缓存淘汰策略',
               activeMatch:'/doc-text/redis/Redlock算法和底层源码分析和缓存淘汰策略'
+            },{
+              text:'redis经典五大类型及底层实现',
+              link:'/doc-text/redis/redis经典五大类型及底层实现',
+              activeMatch:'/doc-text/redis/redis经典五大类型及底层实现'
             }]
       },{
         text:'Linux', 

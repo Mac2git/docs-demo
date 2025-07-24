@@ -662,6 +662,10 @@ export default defineConfig({
               text:'redis经典五大类型及底层实现',
               link:'/doc-text/redis/redis经典五大类型及底层实现',
               activeMatch:'/doc-text/redis/redis经典五大类型及底层实现'
+            },{
+              text:'epoll函数和IO多路复用深度解析',
+              link:'/doc-text/redis/epoll函数和IO多路复用深度解析',
+              activeMatch:'/doc-text/redis/epoll函数和IO多路复用深度解析'
             }]
       },{
         text:'Linux', 

@@ -101,9 +101,14 @@ export default defineConfig({
           activeMatch:'/doc-text/一键生成mapper和实体类/generator' 
         },]
       },{
-        link:'/doc-text/emu/emu01',
-        text:"汇编",
-        activeMatch:'/doc-text/emu/emu01'
+        text:'AI',
+        items:[
+          {
+            text:"LangChain4j",
+            link:'/doc-text/AI/LangChainForjava/1.md',
+            activeMatch:'/doc-text/AI/LangChainForjava/1.md'
+          }
+        ]
       },{
         link:'/doc-text/wx/wx01',
         text:"微信小程序",
@@ -698,6 +703,15 @@ export default defineConfig({
         link:'/doc-text/一键生成mapper和实体类/generator',
         text:"一键生成mapper和实体类",
         activeMatch:'/doc-text/一键生成mapper和实体类/generator' 
+      },{
+        text:'AI',
+        items:[
+          {
+            text:"LangChain4j",
+            link:'/doc-text/AI/LangChain4j/1.md',
+            activeMatch:'/doc-text/AI/LangChain4j/1.md'
+          }
+        ]
       }
     ],
     // 个人图标
